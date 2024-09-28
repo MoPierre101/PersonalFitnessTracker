@@ -1,12 +1,9 @@
 package mike.personalfitnesstracker;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.awt.event.ActionEvent;
-
-public class HelloController {
+public class LoginController {
 
     @FXML
     private TextField userNameTF;
