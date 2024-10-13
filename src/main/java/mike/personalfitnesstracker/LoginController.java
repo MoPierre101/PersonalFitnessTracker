@@ -10,6 +10,11 @@ public class LoginController {
     @FXML
     private TextField passwordTF;
 
+    @javafx.fxml.FXML
+    public void initialize() {
+
+    }
+
     @FXML
     protected void onLoginButtonClick() {
         String userName = userNameTF.getText();
@@ -23,6 +28,7 @@ public class LoginController {
 
     @FXML
     public void onSignupButtonPress() {
-        //insert code here to allow user to signup and create an account
+        //insert code here to allow user to sign up and create an account
+
     }
 }
