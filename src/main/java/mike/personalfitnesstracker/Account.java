@@ -65,6 +65,4 @@ public class Account {
     public void setWeight(double weight) {
         this.weight = weight;
     }
-
-
 }
