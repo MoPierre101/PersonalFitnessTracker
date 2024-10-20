@@ -17,8 +17,9 @@
     <Button text="Change Username" layoutX="20.0" layoutY="130.0" onAction="#handleChangeUsername"/>
 
     <Label text="Appearance" layoutX="20.0" layoutY="170.0" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
-    <ToggleGroup><![CDATA[
-        ]]><RadioButton fx:id="lightModeRadioButton" text="Light Mode" layoutX="20.0" layoutY="200.0" onAction="#handleLightMode"/>
+
+    <ToggleGroup>
+        <RadioButton fx:id="lightModeRadioButton" text="Light Mode" layoutX="20.0" layoutY="200.0" onAction="#handleLightMode"/>
         <RadioButton fx:id="darkModeRadioButton" text="Dark Mode" layoutX="120.0" layoutY="200.0" onAction="#handleDarkMode"/>
     </ToggleGroup>
 

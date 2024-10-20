@@ -2,6 +2,7 @@ package mike.personalfitnesstracker;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -9,6 +10,7 @@ import javafx.scene.control.ToggleGroup;
 public class Settings {
 
     public ToggleGroup themeToggleGroup;
+    public Button returnButton;
     @FXML
     private ComboBox<String> fontSizeComboBox;
 
