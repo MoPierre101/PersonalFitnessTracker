@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="mike.personalfitnesstracker.Settings"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="450.0" prefWidth="600.0">
 
     <Button fx:id="returnButton" text="Return" layoutX="20.0" layoutY="20.0" onAction="#handleReturnAction"/>
-</AnchorPane>
 
+    <Label text="Profile" layoutX="20.0" layoutY="60.0" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+    <Button text="Update Profile Picture" layoutX="20.0" layoutY="90.0" onAction="#handleUpdateProfilePicture"/>
+    <Button text="Change Username" layoutX="20.0" layoutY="130.0" onAction="#handleChangeUsername"/>
+
+    <Label text="Appearance" layoutX="20.0" layoutY="170.0" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+    <ToggleGroup><![CDATA[
+        ]]><RadioButton fx:id="lightModeRadioButton" text="Light Mode" layoutX="20.0" layoutY="200.0" onAction="#handleLightMode"/>
+        <RadioButton fx:id="darkModeRadioButton" text="Dark Mode" layoutX="120.0" layoutY="200.0" onAction="#handleDarkMode"/>
+    </ToggleGroup>
+
+    <Label text="Font Size" layoutX="20.0" layoutY="230.0"/>
+    <ComboBox fx:id="fontSizeComboBox" layoutX="20.0" layoutY="260.0"/>
+
+    <Label text="Notifications" layoutX="20.0" layoutY="300.0" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+    <CheckBox text="Email Notifications" layoutX="20.0" layoutY="330.0"/>
+    <CheckBox text="Push Notifications" layoutX="20.0" layoutY="360.0"/>
+    <CheckBox text="SMS Alerts" layoutX="20.0" layoutY="390.0"/>
+
+</AnchorPane>
