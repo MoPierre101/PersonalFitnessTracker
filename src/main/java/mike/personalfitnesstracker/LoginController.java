@@ -1,14 +1,31 @@
 package mike.personalfitnesstracker;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private TextField userNameTF;
     @FXML
     private TextField passwordTF;
+    @FXML
+    private Button signupButton;
+    @FXML
+    private Button loginButton;
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -16,19 +33,35 @@ public class LoginController {
     }
 
     @FXML
-    protected void onLoginButtonClick() {
+    protected void login (ActionEvent event) throws IOException {
         String userName = userNameTF.getText();
         String password = passwordTF.getText();
-        //insert code here to login
+
+        Parent homeParent = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Scene signUpScene = new Scene(homeParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(signUpScene);
+        window.centerOnScreen();
+        window.show();
 
         userNameTF.clear();
         passwordTF.clear();
+
     }
 
 
     @FXML
-    public void onSignupButtonPress() {
-        //insert code here to allow user to sign up and create an account
+    public void signup(ActionEvent event) throws IOException {
+       Parent signUpParent = FXMLLoader.load(getClass().getResource("signup.fxml"));
+       Scene signUpScene = new Scene(signUpParent);
 
+       Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+       window.setScene(signUpScene);
+       window.centerOnScreen();
+       window.show();
     }
+
 }
