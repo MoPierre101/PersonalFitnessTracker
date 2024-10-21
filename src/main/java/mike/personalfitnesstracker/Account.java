@@ -7,14 +7,16 @@ public class Account {
     private String email;
     private int age;
     private double weight;
+    private double height;
 
-    public Account(String username, String password, String realname, String email, int age, double weight) {
+    public Account(String username, String password, String realname, String email, int age, double weight, double height) {
         this.username = username;
         this.password = password;
         this.realname = realname;
         this.email = email;
         this.age = age;
         this.weight = weight;
+        this.height = height;
     }
 
     public String getUsername() {
@@ -23,7 +25,6 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
-
     }
 
     public String getPassword() {
@@ -66,5 +67,16 @@ public class Account {
         this.weight = weight;
     }
 
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double calculateBMI(double weight, double height) {
+        return (weight / (height * height));
+    }
 
 }
