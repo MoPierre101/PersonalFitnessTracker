@@ -10,7 +10,7 @@ import javafx.scene.control.ToggleGroup;
 public class Settings {
 
     @FXML
-    private ToggleGroup themeToggleGroup;  // Make sure to annotate this with @FXML
+    private ToggleGroup themeToggleGroup;  
     @FXML
     private Button returnButton;
     @FXML
