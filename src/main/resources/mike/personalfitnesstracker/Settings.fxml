@@ -24,11 +24,9 @@
     </ToggleGroup>
 
     <Label text="Font Size" layoutX="20.0" layoutY="230.0"/>
-    <ComboBox fx:id="fontSizeComboBox" layoutX="20.0" layoutY="260.0"/>
+    <ComboBox fx:id="fontSizeComboBox" layoutX="20.0" layoutY="260.0" items="${fontSizeOptions}"/>
 
     <Label text="Notifications" layoutX="20.0" layoutY="300.0" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
     <CheckBox text="Email Notifications" layoutX="20.0" layoutY="330.0"/>
     <CheckBox text="Push Notifications" layoutX="20.0" layoutY="360.0"/>
     <CheckBox text="SMS Alerts" layoutX="20.0" layoutY="390.0"/>
-
-</AnchorPane>
