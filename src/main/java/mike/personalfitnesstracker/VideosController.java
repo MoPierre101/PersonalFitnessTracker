@@ -35,13 +35,13 @@ public class VideosController {
     Button playPauseButton;
 
     @FXML
-    private Button beginnerVids;
+    private Button bu_Vids;
 
     @FXML
-    private Button intermediateVids;
+    private Button intu_Vids;
 
     @FXML
-    private Button advancedVids;
+    private Button au_Vids;
 
     @FXML
     private Button b_upperVid1;
@@ -73,7 +73,7 @@ public class VideosController {
     }
 
     @FXML
-    private void beginnerVidsClicked(ActionEvent event) throws IOException {
+    private void bu_VidsClicked(ActionEvent event) throws IOException {
 
         Parent vidsParent = FXMLLoader.load(getClass().getResource("beginnerworkouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
@@ -88,7 +88,7 @@ public class VideosController {
     }
 
     @FXML
-    private void intermediateVidsClicked(ActionEvent event) throws IOException {
+    private void intu_VidsClicked(ActionEvent event) throws IOException {
 
         Parent vidsParent = FXMLLoader.load(getClass().getResource("intermediateworkouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
@@ -103,7 +103,7 @@ public class VideosController {
     }
 
     @FXML
-    private void advancedVidsClicked(ActionEvent event) throws IOException {
+    private void au_VidsClicked(ActionEvent event) throws IOException {
 
         Parent vidsParent = FXMLLoader.load(getClass().getResource("advancedworkouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
