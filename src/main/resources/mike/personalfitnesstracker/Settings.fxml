@@ -22,10 +22,9 @@
                 <GridPane layoutX="150.0" layoutY="70.0" prefHeight="400.0" prefWidth="500.0">
                     <children>
                         <Label text="Select Theme:" />
-                        <ToggleGroup fx:id="themeToggleGroup">
-                            <RadioButton fx:id="lightModeRadioButton" text="Light Mode" onAction="#handleLightMode"/>
-                            <RadioButton fx:id="darkModeRadioButton" text="Dark Mode" onAction="#handleDarkMode"/>
-                        </ToggleGroup>
+                        <Label text="Select Theme:" />
+                        <RadioButton fx:id="lightModeRadioButton" text="Light Mode" />
+                        <RadioButton fx:id="darkModeRadioButton" text="Dark Mode" />
                         <Label text="Font Size:" GridPane.rowIndex="1"/>
                         <ComboBox fx:id="fontSizeComboBox" GridPane.rowIndex="1" />
                         <Label text="Profile Picture:" GridPane.rowIndex="2"/>
