@@ -10,9 +10,9 @@ import javafx.scene.control.ToggleGroup;
 public class Settings {
 
     @FXML
-    private ToggleGroup themeToggleGroup;
+    private ToggleGroup themeToggleGroup;  // Make sure to annotate this with @FXML
     @FXML
-    private Button themeButton;
+    private Button returnButton;
     @FXML
     private ComboBox<String> fontSizeComboBox;
     @FXML
@@ -22,49 +22,37 @@ public class Settings {
 
     @FXML
     public void initialize() {
+        // Populate the font sizes
         fontSizeComboBox.setItems(FXCollections.observableArrayList("Small", "Medium", "Large"));
-
-
-        lightModeRadioButton.setOnAction(event -> handleLightMode());
-        darkModeRadioButton.setOnAction(event -> handleDarkMode());
-
-
-        fontSizeComboBox.setOnAction(event -> handleFontSizeChange());
     }
 
     @FXML
     private void handleReturnAction() {
         System.out.println("Returning to the previous screen...");
+        // Implement navigation logic here
     }
 
     @FXML
     private void handleUpdateProfilePicture() {
         System.out.println("Updating profile picture...");
-
+        // Implement profile picture update logic here
     }
 
     @FXML
     private void handleChangeUsername() {
         System.out.println("Changing username...");
-
+        // Implement username change logic here
     }
 
     @FXML
     private void handleLightMode() {
         System.out.println("Switched to Light Mode");
-
+        // Implement theme change logic here
     }
 
     @FXML
     private void handleDarkMode() {
         System.out.println("Switched to Dark Mode");
-
-    }
-
-    @FXML
-    private void handleFontSizeChange() {
-        String selectedSize = fontSizeComboBox.getSelectionModel().getSelectedItem();
-        System.out.println("Font size changed to: " + selectedSize);
-
+        // Implement theme change logic here
     }
 }
