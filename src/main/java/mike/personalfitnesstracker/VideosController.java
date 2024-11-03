@@ -32,50 +32,81 @@ public class VideosController {
             "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Shoulder_Press.mp4",
             "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Bodyweight_Tricep_Dip.mp4"
     };
+
+    final private String[] bc_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Ab_Crunch.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Bicycle_Crunch.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Mountain_Climbers.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Plank.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Russian_Twist.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Superman.mp4"
+    };
+
+    final private String[] bl_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Forward_Lunge.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Farmer's_Carry.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Dumbbell_Deadlift.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Dumbbell_Step_Up.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Single_Leg_Calf_Raise.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Bodyweight_Squat.mp4",
+    };
+
+    final private String[] iu_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Z_Press.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Pull_Ups.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Hammer_Curls.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Barbell_Bench_Press.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Dumbbell_Incline_Press.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Barbell_Bent_Over_Row.mp4"
+    };
+
+    final private String[] ic_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Side_Plank.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/V_Sit_Up.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Pallof_Press.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Reverse_Crunch.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Hanging_Leg_Raises.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Barbell_Good_Morning.mp4"
+    };
+
+    final private String[] il_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Split_Squat.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Goblet_Squat.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Romanian_Deadlift.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Seated_Calf_Raises.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Hip_Thrust.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Front_Squat.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Back_Squat.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Standing_Barbell_Calf_Raises.mp4"
+    };
     Button playPauseButton;
 
-    @FXML
-    private Button bu_Vids;
 
-    @FXML
-    private Button intu_Vids;
-
-    @FXML
-    private Button au_Vids;
-
-    @FXML
-    private Button b_upperVid1;
-
-    @FXML
-    private Button b_upperVid2;
-
-    @FXML
-    private Button b_upperVid3;
-
-    @FXML
-    private Button b_upperVid4;
-
-    @FXML
-    private Button b_upperVid5;
-
-    @FXML
-    private Button b_upperVid6;
-
-    @FXML
-    private Button b_upperVid7;
-
-    @FXML
-    private Button b_upperVid8;
 
     @FXML
     public void initialize() {
 
     }
 
+    //Beginner Options
     @FXML
     private void bu_VidsClicked(ActionEvent event) throws IOException {
 
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("beginnerworkouts.fxml"));
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("bu_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+    @FXML
+    private void bc_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("bc_workouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -88,9 +119,9 @@ public class VideosController {
     }
 
     @FXML
-    private void intu_VidsClicked(ActionEvent event) throws IOException {
+    private void bl_VidsClicked(ActionEvent event) throws IOException {
 
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("intermediateworkouts.fxml"));
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("bl_workouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -102,10 +133,57 @@ public class VideosController {
 
     }
 
+    //Intermediate Options
+    @FXML
+    private void iu_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("iu_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+
+    @FXML
+    private void ic_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("ic_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+
+    @FXML
+    private void il_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("il_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+
+    //Advanced Options
     @FXML
     private void au_VidsClicked(ActionEvent event) throws IOException {
 
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("advancedworkouts.fxml"));
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("au_workouts.fxml"));
         Scene vidScene = new Scene(vidsParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -117,6 +195,37 @@ public class VideosController {
 
     }
 
+    @FXML
+    private void ac_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("ac_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+
+    @FXML
+    private void al_VidsClicked(ActionEvent event) throws IOException {
+
+        Parent vidsParent = FXMLLoader.load(getClass().getResource("al_workouts.fxml"));
+        Scene vidScene = new Scene(vidsParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(vidScene);
+        window.centerOnScreen();
+        window.show();
+
+
+    }
+
+    //Back Button Pressed
     @FXML
     private void returnClicked(ActionEvent event) throws IOException {
 
@@ -165,12 +274,150 @@ public class VideosController {
         playVideo(bu_videoPath[7]);
     }
 
+    //Core Beginner Exercise Video Handlers
+    @FXML
+    private void b_corevid1Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[0]);
+    }
+    @FXML
+    private void b_corevid2Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[1]);
+    }
+    @FXML
+    private void b_corevid3Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[2]);
+    }
+    @FXML
+    private void b_corevid4Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[3]);
+    }
+    @FXML
+    private void b_corevid5Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[4]);
+    }
+    @FXML
+    private void b_corevid6Clicked(ActionEvent event) throws IOException {
+        playVideo(bc_videoPath[5]);
+    }
+
+    //Lower Beginner Exercise Video Handlers
+    @FXML
+    private void b_lowervid1Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[0]);
+    }
+    @FXML
+    private void b_lowervid2Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[1]);
+    }
+    @FXML
+    private void b_lowervid3Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[2]);
+    }
+    @FXML
+    private void b_lowervid4Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[3]);
+    }
+    @FXML
+    private void b_lowervid5Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[4]);
+    }
+    @FXML
+    private void b_lowervid6Clicked(ActionEvent event) throws IOException {
+        playVideo(bl_videoPath[5]);
+    }
+
+    //Upper Intermediate Exercise Video Handlers
+    @FXML
+    private void i_uppervid1Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[0]);
+    }
+    @FXML
+    private void i_uppervid2Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[1]);
+    }
+    @FXML
+    private void i_uppervid3Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[2]);
+    }
+    @FXML
+    private void i_uppervid4Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[3]);
+    }
+    @FXML
+    private void i_uppervid5Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[4]);
+    }
+    @FXML
+    private void i_uppervid6Clicked(ActionEvent event) throws IOException {
+        playVideo(iu_videoPath[5]);
+    }
+
+
+    @FXML
+    private void i_corevid1Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[0]);
+    }
+    @FXML
+    private void i_corevid2Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[1]);
+    }
+    @FXML
+    private void i_corevid3Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[2]);
+    }
+    @FXML
+    private void i_corevid4Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[3]);
+    }
+    @FXML
+    private void i_corevid5Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[4]);
+    }
+    @FXML
+    private void i_corevid6Clicked(ActionEvent event) throws IOException {
+        playVideo(ic_videoPath[5]);
+    }
+
+    
+    @FXML
+    private void i_lowervid1Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[0]);
+    }
+    @FXML
+    private void i_lowervid2Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[1]);
+    }
+    @FXML
+    private void i_lowervid3Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[2]);
+    }
+    @FXML
+    private void i_lowervid4Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[3]);
+    }
+    @FXML
+    private void i_lowervid5Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[4]);
+    }
+    @FXML
+    private void i_lowervid6Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[5]);
+    }
+    @FXML
+    private void i_lowervid7Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[6]);
+    }
+    @FXML
+    private void i_lowervid8Clicked(ActionEvent event) throws IOException {
+        playVideo(il_videoPath[7]);
+    }
+
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
             mediaPlayer.stop();
         }
 
-        playPauseButton = new Button("Play");
+        playPauseButton = new Button("Pause");
         playPauseButton.setOnAction(e -> togglePlayPause());
 
         File videoFile = new File(videoPath);
@@ -190,6 +437,13 @@ public class VideosController {
         vboxStage.setScene(vboxScene);
         vboxStage.show();
 
+        mediaPlayer.play();
+
+        mediaPlayer.setOnEndOfMedia(() -> {
+            mediaPlayer.seek(Duration.ZERO);
+            mediaPlayer.play();
+        });
+
     }
 
     private void togglePlayPause() {
@@ -200,10 +454,6 @@ public class VideosController {
             mediaPlayer.play();
             playPauseButton.setText("Pause");
         }
-        mediaPlayer.setOnEndOfMedia(() -> {
-            mediaPlayer.seek(Duration.ZERO);
-            mediaPlayer.play();
-        });
 
     }
 
