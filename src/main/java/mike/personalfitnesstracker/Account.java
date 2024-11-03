@@ -1,21 +1,22 @@
 package mike.personalfitnesstracker;
 
-public class Account {
+public class Account  {
     private String username;
     private String password;
-    private String realname;
     private String email;
-    private int age;
-    private double weight;
 
-    public Account(String username, String password, String realname, String email, int age, double weight) {
+    private Person person;
+
+    public Account(String username, String password, String email, Person person) {
+
+
         this.username = username;
         this.password = password;
-        this.realname = realname;
         this.email = email;
-        this.age = age;
-        this.weight = weight;
+        this.person = new Person(person);
+
     }
+
 
     public String getUsername() {
         return username;
@@ -34,12 +35,19 @@ public class Account {
         this.password = password;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getFirstName() {
+        return this.person.getFirstName();
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public String getLastName() {
+        return this.person.getLastName();
+    }
+
+    public void setFirstName(String firstname) {
+        this.person.setFirstName(firstname);
+    }
+    public void setLastName(String lastname) {
+        this.person.setLastName(lastname);
     }
 
     public String getEmail() {
@@ -51,18 +59,18 @@ public class Account {
     }
 
     public int getAge() {
-        return age;
+        return this.person.getAge();
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.person.setAge(age);
     }
 
     public double getWeight() {
-        return weight;
+        return this.person.getWeight();
     }
 
     public void setWeight(double weight) {
-        this.weight = weight;
+        this.person.setWeight(weight);
     }
 }
