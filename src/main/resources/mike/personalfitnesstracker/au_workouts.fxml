@@ -18,53 +18,86 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <children>
-                <Button fx:id="upperVid1" layoutX="118.0" layoutY="28.0" mnemonicParsing="false" text="Cable Fly" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid1Clicked" text="Zottman Curl" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="103.0" layoutY="28.0" mnemonicParsing="false" text="Row (Dumbell)" />
+                <Button layoutX="104.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid2Clicked" text="Preacher Curls" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="98.0" layoutY="28.0" mnemonicParsing="false" text="Lateral Pulldown" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid3Clicked" text="Military Press" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="101.0" layoutY="29.0" mnemonicParsing="false" text="Cable Face Pulls" />
+                <Button layoutX="106.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid4Clicked" text="Lateral Raises" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="88.0" layoutY="28.0" mnemonicParsing="false" text="Bicep Curl (Dumbell)" />
+                <Button layoutX="104.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid5Clicked" text="Inverted Rows" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="83.0" layoutY="28.0" mnemonicParsing="false" text="Bench Press (Dumbell)" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid6Clicked" text="Pike Push Up" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
             <children>
-                <Button layoutX="75.0" layoutY="28.0" mnemonicParsing="false" text="Shoulder Press (Dumbell)" />
+                <Button layoutX="100.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid7Clicked" text="Clean and Press" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <children>
-                <Button layoutX="79.0" layoutY="28.0" mnemonicParsing="false" text="Tricep Dip (Bodyweight)" />
+                <Button layoutX="95.0" layoutY="14.0" mnemonicParsing="false" onAction="#a_uppervid8Clicked" text="Clapping Push Up" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Button layoutX="124.0" layoutY="28.0" mnemonicParsing="false" onAction="#returnClicked" text="Return" />
+                <Button layoutX="124.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnClicked" text="Return" />
             </children>
         </AnchorPane>
         <TextField alignment="CENTER" promptText="Filter" GridPane.columnIndex="1" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+         <children>
+            <Button layoutX="85.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid9Clicked" text="Incline Fly (Dumbbell)" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Button layoutX="78.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid10Clicked" text="Skull Crusher (Dumbbel)" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+         <children>
+            <Button layoutX="79.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid11Clicked" text="Close Grip Lat Pulldown" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <children>
+            <Button layoutX="78.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid12Clicked" text="Wide Grip Lap Pulldown" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
+         <children>
+            <Button layoutX="70.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid13Clicked" text="Single Arm Landmine Press" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <children>
+            <Button layoutX="68.0" layoutY="12.0" mnemonicParsing="false" onAction="#a_uppervid14Clicked" text="Incline Bench Press (Barbell)" />
+         </children>
+      </AnchorPane>
     </children>
 </GridPane>
