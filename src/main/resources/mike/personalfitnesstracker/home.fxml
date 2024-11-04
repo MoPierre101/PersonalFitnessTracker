@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.HomeController">
+   <children>
+      <VBox prefHeight="175.0" prefWidth="800.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="101.0" layoutY="88.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="welcomeLabel" layoutX="196.0" layoutY="73.0" text="Welcome back, Username!">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox layoutY="175.0" prefHeight="175.0" prefWidth="800.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="BMILabel" layoutX="83.0" layoutY="14.0" text="Current Calculated BMI:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="weightLabel" layoutX="83.0" layoutY="88.0" text="Current Weight:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="targetCalorieLabel" layoutX="400.0" layoutY="14.0" text="Target Calorie intake for the day: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalStepLabel" layoutX="400.0" layoutY="88.0" text="Total Number of steps today:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox layoutY="350.0" prefHeight="175.0" prefWidth="800.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="92.0" text="Logout" />
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="30.0" prefWidth="92.0" text="View Stats" />
+               </children></AnchorPane>
+         </children>
+      </VBox>
+      <VBox layoutY="525.0" prefHeight="175.0" prefWidth="800.0" />
+   </children>
+</AnchorPane>

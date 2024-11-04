@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="419.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.LoginController">
+<Pane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.LoginController">
    <children>
-      <AnchorPane prefHeight="419.0" prefWidth="500.0">
+      <AnchorPane prefHeight="363.0" prefWidth="467.0">
          <children>
-            <Label layoutX="206.0" layoutY="14.0" text="Please Login">
+            <Label layoutX="194.0" layoutY="2.0" text="Please Login">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <GridPane layoutX="85.0" layoutY="84.0" prefHeight="126.0" prefWidth="331.0">
+            <GridPane layoutX="73.0" layoutY="84.0" prefHeight="126.0" prefWidth="331.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,17 +43,17 @@
                   <TextField fx:id="passwordTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="248.0" layoutY="210.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="25.0" prefWidth="165.0" text="Login">
+            <Button fx:id="loginButton" layoutX="239.0" layoutY="210.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="165.0" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Label layoutX="165.0" layoutY="287.0" text="Don't have an account?">
+            <Label layoutX="156.0" layoutY="283.0" text="Don't have an account?">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button layoutX="166.0" layoutY="330.0" mnemonicParsing="false" onAction="#onSignupButtonPress" prefHeight="31.0" prefWidth="165.0" text="Signup Today!">
+            <Button fx:id="signupButton" layoutX="156.0" layoutY="320.0" mnemonicParsing="false" onAction="#signup" prefHeight="31.0" prefWidth="165.0" text="Signup Today!">
                <font>
                   <Font size="15.0" />
                </font>
