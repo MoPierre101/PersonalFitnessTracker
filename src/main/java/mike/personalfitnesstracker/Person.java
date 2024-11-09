@@ -39,6 +39,7 @@ public class Person {
     public double getWeight() {
         return this.weight;
     }
+
     public double getHeight() {
         return this.height;
     }
@@ -57,6 +58,7 @@ public class Person {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
     public void setHeight(double height) {
         this.height = height;
     }

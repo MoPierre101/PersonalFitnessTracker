@@ -1,5 +1,10 @@
 package mike.personalfitnesstracker;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +18,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class SignUpController
@@ -225,6 +233,46 @@ public class SignUpController
 
             //'Account' object created from Person object
             Account addAccount = new Account(username, password, email, addPerson);
+
+            //Create a request to add valid person to Firebase
+            UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                    .setEmail(email)
+                    .setEmailVerified(false)
+                    .setPassword(password)
+                    .setDisplayName(username)
+                    .setDisabled(false);
+
+            //contains everything about the user record stored in the Authentication tab of Firebase
+            UserRecord userRecord;
+            try{
+                userRecord = Main.fauth.createUser(request);
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+                a.setHeight(300);
+                a.setWidth(250);
+
+                a.setHeaderText("Success!");
+                a.setContentText("Account created successfully!");
+                a.show();
+
+            }
+            catch(FirebaseAuthException ex){
+                System.out.println("Error creating a new user");
+            }
+
+            //creating a collection called 'Account'
+            //UUID randomization
+            DocumentReference docRef = Main.fstore.collection("Account").document(UUID.randomUUID().toString());
+
+            //create a collection to store user data
+            Map<String, Object> data = new HashMap<>();
+
+            data.put("UserName", addAccount.getUsername());
+            data.put("Password", addAccount.getPassword());
+            data.put("Email", addAccount.getEmail());
+            data.put("Person", addAccount.getPerson());
+
+            //write data
+            ApiFuture<WriteResult> result = docRef.set(data);
 
             Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
             Scene loginScene = new Scene(loginParent);

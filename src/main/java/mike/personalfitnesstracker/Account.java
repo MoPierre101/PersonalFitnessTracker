@@ -73,4 +73,8 @@ public class Account  {
     public void setWeight(double weight) {
         this.person.setWeight(weight);
     }
+
+    public Person getPerson() {
+        return this.person;
+    }
 }
