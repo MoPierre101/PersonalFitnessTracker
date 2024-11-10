@@ -259,21 +259,24 @@ public class SignUpController
                 System.out.println("Error creating a new user");
             }
 
-            //creating a collection called 'Account'
+            //creating a collection called 'Person'
             //UUID randomization
-            DocumentReference docRef = Main.fstore.collection("Account").document(UUID.randomUUID().toString());
+            DocumentReference docRef = Main.fstore.collection("Person").document(UUID.randomUUID().toString());
 
             //create a collection to store user data
             Map<String, Object> data = new HashMap<>();
 
-            data.put("UserName", addAccount.getUsername());
-            data.put("Password", addAccount.getPassword());
-            data.put("Email", addAccount.getEmail());
-            data.put("Person", addAccount.getPerson());
+            //Store user data into map
+            data.put("First Name", addAccount.getUsername());
+            data.put("Last Name", addAccount.getPassword());
+            data.put("Age", addAccount.getEmail());
+            data.put("Current Height", addAccount.getHeight());
+            data.put("Current Weight", addAccount.getWeight());
 
-            //write data
+            //write data to 'Person' collection within Firebase
             ApiFuture<WriteResult> result = docRef.set(data);
 
+            //take user back to Login-screen
             Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
             Scene loginScene = new Scene(loginParent);
 

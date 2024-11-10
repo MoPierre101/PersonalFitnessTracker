@@ -3,7 +3,7 @@ package mike.personalfitnesstracker;
 import java.util.Date;
 
 public class Log {
-    private int weight;
+    private double weight;
     private Date date;
 
     public Log(int weight) {
@@ -11,7 +11,7 @@ public class Log {
         this.date = new Date();
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 

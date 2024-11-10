@@ -46,13 +46,28 @@ public class PatternChecker {
     }
 
     /**
-     * isValidPassword -
-     * @param: password -
-     * @return:
+     * isValidPassword - method that checks if a valid password is set for the user's account.
+     * ^ represents the start of the string
+     * (?=.*[0-9]) represents a digit must occur at least once
+     * (?=.*[a-z]) represents a lower case letter must occur at least once
+     * (?=.*[A-Z]) represents an upper case letter that must occur at least once
+     * (?=.*[@#$%^&-+=]) represents a special character that must occur at least once
+     * (?=\S+$) does not allow any form of whitespace to occur within the string
+     * .{8,20} represents a minimum of 8 characters and at most 20
+     * $ represents the end of the string
+     * @param: password - the user's inputted password
+     * @return: true if the user's password is valid, false otherwise
      */
     public static boolean isValidPassword(String password) {
-        //insert regex for valid passwords
-        return true;
+
+        //local variable that represents the regex being used
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&-+=])"
+                + "(?=\\S+$).{8,20}$";
+
+        //return results to user
+        return password.matches(regex);
     }
 
     /**
