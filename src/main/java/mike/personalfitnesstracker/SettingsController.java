@@ -24,7 +24,7 @@ public class SettingsController {
     @FXML
     private void handleThemeChange() {
         if (lightModeRadioButton.isSelected()) {
-            setLightMode(); // Apply light theme if selected
+            setLightMode();
         } else if (darkModeRadioButton.isSelected()) {
             setDarkMode();
         }

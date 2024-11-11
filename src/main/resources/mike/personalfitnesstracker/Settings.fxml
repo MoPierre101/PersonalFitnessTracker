@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ToggleGroup?>
 
 <Pane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SettingsController">
     <children>
@@ -20,48 +21,47 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <GridPane layoutX="201.0" layoutY="69.0" prefHeight="400.0" prefWidth="500.0" stylesheets="@../../../java/styles/lightMode.css">
+
+
+                <GridPane layoutX="201.0" layoutY="69.0" prefHeight="400.0" prefWidth="500.0">
                     <children>
                         <Label text="Select Theme:" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                        <RadioButton fx:id="lightModeRadioButton" onAction="#handleThemeChange" text="Light Mode" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                        <RadioButton fx:id="darkModeRadioButton" onAction="#handleThemeChange" text="Dark Mode" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+
+
+                        <ToggleGroup fx:id="themeToggleGroup"/>
+                        <RadioButton fx:id="lightModeRadioButton" onAction="#handleThemeChange" text="Light Mode" toggleGroup="$themeToggleGroup" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                        <RadioButton fx:id="darkModeRadioButton" onAction="#handleThemeChange" text="Dark Mode" toggleGroup="$themeToggleGroup" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+
+
                         <Label text="Font Size:" GridPane.columnIndex="3" GridPane.rowIndex="15" />
-                        <ComboBox fx:id="fontSizeComboBox" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                        <Label text="Profile Picture:" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-                        <Button onAction="#handleUpdateProfilePicture" text="Update Picture" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+                        <ComboBox fx:id="fontSizeComboBox" onAction="#handleFontSizeChange" GridPane.columnIndex="3" GridPane.rowIndex="16" />
+
+
+                        <Label text="Profile Picture:" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                        <Button onAction="#handleUpdateProfilePicture" text="Update Picture" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+
+
                         <Label text="Username:" GridPane.columnIndex="3" GridPane.rowIndex="14" />
-                        <Button onAction="#handleChangeUsername" prefHeight="15.0" prefWidth="120.0" text="Change Username" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                        <Button onAction="#handleChangeUsername" prefHeight="15.0" prefWidth="120.0" text="Change Username" GridPane.columnIndex="4" GridPane.rowIndex="14" />
                     </children>
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints />
-                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="31.0" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="29.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-               </rowConstraints>
+
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                    </columnConstraints>
+
+                    <rowConstraints>
+                        <RowConstraints minHeight="20.0" />
+                        <RowConstraints minHeight="20.0" />
+
+                        <RowConstraints minHeight="30.0" />
+                    </rowConstraints>
                 </GridPane>
+
+
                 <Button layoutX="350.0" layoutY="500.0" onAction="#handleReturnAction" text="Return" />
             </children>
         </AnchorPane>
