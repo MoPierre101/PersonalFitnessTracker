@@ -67,4 +67,4 @@ Program and Hardware:
 Meeting Times/Dates
 
 
-As a collective, we have agreed to meet on Monday’s/Wednesday’s at 5pm either virtually or in-person.
+As a collective, we have agreed to meet on Sunday's at 9pm virtually
