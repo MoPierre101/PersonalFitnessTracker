@@ -21,32 +21,32 @@
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="114.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid1Clicked" text="Ab Crunch" />
+                <Button layoutX="114.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid1Clicked" text="Box Jumps" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="104.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid2Clicked" text="Bicycle Crunch" />
+                <Button layoutX="105.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid2Clicked" text="Seated Pistols" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="91.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid3Clicked" text="Mountain Climbers" />
+                <Button layoutX="102.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid3Clicked" text="Dumbell Lunge" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="128.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid4Clicked" text="Plank" />
+                <Button layoutX="106.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid4Clicked" text="Barbell Lunge" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="107.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid5Clicked" text="Russian Twist" />
+                <Button layoutX="87.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid5Clicked" text="Bulgarian Split Squat" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="115.0" layoutY="37.0" mnemonicParsing="false" onAction="#b_corevid6Clicked" text="Superman" />
+                <Button layoutX="88.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid6Clicked" text="Burpee Broad Jumps" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">

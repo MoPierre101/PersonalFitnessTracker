@@ -97,6 +97,22 @@ public class VideosController {
             "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Single_Arm_Landmine_Press.mp4",
             "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Barbell_Incline_Bench_Press.mp4"
     };
+
+    final private String[] ac_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Burpees.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Side_Plank.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Hollow_Rock.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Medicine_Ball_Slams.mp4"
+    };
+
+    final private String[] al_videoPath = {
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Box_Jumps.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Seated_Pistols.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Dumbbell_Lunge.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Barbell_Lunge.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Bulgarian_Split_Squats.mp4",
+            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Burpee_Broad_Jumps.mp4"
+    };
     Button playPauseButton;
 
 
@@ -488,6 +504,50 @@ public class VideosController {
         playVideo(au_videoPath[13]);
     }
 
+    //Core Advanced Exercise Video Handlers
+    @FXML
+    private void a_corevid1Clicked(ActionEvent event) throws IOException {
+        playVideo(ac_videoPath[0]);
+    }
+    @FXML
+    private void a_corevid2Clicked(ActionEvent event) throws IOException {
+        playVideo(ac_videoPath[1]);
+    }
+    @FXML
+    private void a_corevid3Clicked(ActionEvent event) throws IOException {
+        playVideo(ac_videoPath[2]);
+    }
+    @FXML
+    private void a_corevid4Clicked(ActionEvent event) throws IOException {
+        playVideo(ac_videoPath[3]);
+    }
+
+    //Lower Advanced Exercise Video Handlers
+    @FXML
+    private void a_lowervid1Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[0]);
+    }
+    @FXML
+    private void a_lowervid2Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[1]);
+    }
+    @FXML
+    private void a_lowervid3Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[2]);
+    }
+    @FXML
+    private void a_lowervid4Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[3]);
+    }
+    @FXML
+    private void a_lowervid5Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[4]);
+    }
+    @FXML
+    private void a_lowervid6Clicked(ActionEvent event) throws IOException {
+        playVideo(al_videoPath[5]);
+    }
+
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
             mediaPlayer.stop();
@@ -513,8 +573,8 @@ public class VideosController {
         Stage vboxStage = new Stage();
         vboxStage.setTitle("Example Video");
         VBox vbox = new VBox();
-        vbox.setAlignment(javafx.geometry.Pos.CENTER);
-
+        vbox.setAlignment(javafx.geometry.Pos.TOP_CENTER);
+        vbox.setSpacing(25);
         vbox.getChildren().addAll(mediaView, playPauseButton, progressBar);
         Scene vboxScene = new Scene(vbox, 640, 480);
         vboxStage.setScene(vboxScene);

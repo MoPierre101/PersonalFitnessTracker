@@ -26,7 +26,7 @@ public class HomeController {
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("choicescreen.fxml"));
         Scene loginScene = new Scene(loginParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
