@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="902.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SignUpController">
+<Pane prefHeight="675.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SignUpController">
    <children>
-      <AnchorPane prefHeight="902.0" prefWidth="1021.0">
+      <AnchorPane prefHeight="675.0" prefWidth="1021.0">
          <children>
             <Label layoutX="458.0" layoutY="14.0" text="Please Sign Up">
                <font>
@@ -95,23 +93,7 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <Label layoutX="152.0" layoutY="657.0" text="How many days do you workout a week?">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="152.0" layoutY="726.0" text="What are your fitness goals?">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <RadioButton fx:id="newcomerRB" layoutX="487.0" layoutY="659.0" mnemonicParsing="false" onAction="#getLevel" text="Newcomer (0-2x a week)" />
-            <RadioButton fx:id="proRB" layoutX="830.0" layoutY="661.0" mnemonicParsing="false" onAction="#getLevel" text="Pro (5-6x a week)" />
-            <RadioButton fx:id="amateurRB" layoutX="649.0" layoutY="659.0" mnemonicParsing="false" onAction="#getLevel" text="Amateur (3-4x a week)" />
-            <CheckBox fx:id="loseWeightCB" layoutX="487.0" layoutY="730.0" mnemonicParsing="false" onAction="#getGoals" text="Lose weight" />
-            <CheckBox fx:id="gainMuscleCB" layoutX="649.0" layoutY="730.0" mnemonicParsing="false" onAction="#getGoals" text="Gain muscle mass" />
-            <CheckBox fx:id="RippedCB" layoutX="830.0" layoutY="728.0" mnemonicParsing="false" onAction="#getGoals" text="Get ripped" />
-            <Button layoutX="448.0" layoutY="815.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="126.0" text="Create Account">
+            <Button layoutX="448.0" layoutY="628.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="126.0" text="Create Account">
                <font>
                   <Font size="13.0" />
                </font>

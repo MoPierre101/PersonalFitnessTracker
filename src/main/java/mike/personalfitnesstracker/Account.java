@@ -1,19 +1,20 @@
 package mike.personalfitnesstracker;
 
-public class Account  {
+public class Account extends Person {
     private String username;
     private String password;
     private String email;
 
-    private Person person;
-
-    public Account(String username, String password, String email, Person person) {
+    private double targetWeight;
 
 
+    public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight, double height, double targetWeight) {
+
+        super(firstName, lastName, age, weight, height);
         this.username = username;
         this.password = password;
         this.email = email;
-        this.person = new Person(person);
+        this.targetWeight = targetWeight;
 
     }
 
@@ -36,18 +37,18 @@ public class Account  {
     }
 
     public String getFirstName() {
-        return this.person.getFirstName();
+        return super.getFirstName();
     }
 
     public String getLastName() {
-        return this.person.getLastName();
+        return super.getLastName();
     }
 
     public void setFirstName(String firstname) {
-        this.person.setFirstName(firstname);
+        super.setFirstName(firstname);
     }
     public void setLastName(String lastname) {
-        this.person.setLastName(lastname);
+        super.setLastName(lastname);
     }
 
     public String getEmail() {
@@ -59,26 +60,31 @@ public class Account  {
     }
 
     public int getAge() {
-        return this.person.getAge();
+        return super.getAge();
     }
 
     public void setAge(int age) {
-        this.person.setAge(age);
+        super.setAge(age);
     }
 
     public double getWeight() {
-        return this.person.getWeight();
+        return super.getWeight();
     }
 
     public void setWeight(double weight) {
-        this.person.setWeight(weight);
+        super.setWeight(weight);
     }
 
     public double getHeight() {
-        return this.person.getHeight();
+        return super.getHeight();
     }
 
-    public Person getPerson() {
-        return this.person;
+    public void setTargetWeight(double targetWeight) {
+        this.targetWeight = targetWeight;
     }
+
+    public double getTargetWeight() {
+        return this.targetWeight;
+    }
+
 }

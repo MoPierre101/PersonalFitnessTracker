@@ -26,18 +26,6 @@ import java.util.UUID;
 public class SignUpController
 {
     @FXML
-    private RadioButton newcomerRB;
-    @FXML
-    private RadioButton proRB;
-    @FXML
-    private CheckBox RippedCB;
-    @FXML
-    private RadioButton amateurRB;
-    @FXML
-    private CheckBox loseWeightCB;
-    @FXML
-    private CheckBox gainMuscleCB;
-    @FXML
     private TextField enterPasswordTF;
     @FXML
     private TextField enterEmailTF;
@@ -63,12 +51,12 @@ public class SignUpController
 
     }
 
-    @FXML
+    @Deprecated
     public void getLevel(ActionEvent actionEvent) {
 
     }
 
-    @FXML
+    @Deprecated
     public void getGoals(ActionEvent actionEvent) {
 
     }
@@ -232,7 +220,7 @@ public class SignUpController
             Person addPerson = new Person(firstName, lastName, age, curWeight, height);
 
             //'Account' object created from Person object
-            Account addAccount = new Account(username, password, email, addPerson);
+            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, height, targetWeight);
 
             //Create a request to add valid person to Firebase
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
@@ -267,11 +255,15 @@ public class SignUpController
             Map<String, Object> data = new HashMap<>();
 
             //Store user data into map
-            data.put("First Name", addAccount.getUsername());
-            data.put("Last Name", addAccount.getPassword());
-            data.put("Age", addAccount.getEmail());
+            data.put("First Name", addAccount.getFirstName());
+            data.put("Last Name", addAccount.getLastName());
+            data.put("Username", addAccount.getUsername());
+            data.put("Password", addAccount.getPassword());
+            data.put("Email", addAccount.getEmail());
+            data.put("Age", addAccount.getAge());
             data.put("Current Height", addAccount.getHeight());
             data.put("Current Weight", addAccount.getWeight());
+            data.put("Target Weight", addAccount.getTargetWeight());
 
             //write data to 'Person' collection within Firebase
             ApiFuture<WriteResult> result = docRef.set(data);
