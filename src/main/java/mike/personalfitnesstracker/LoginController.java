@@ -14,10 +14,6 @@ import java.io.IOException;
 
 public class LoginController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     @FXML
     private TextField userNameTF;
     @FXML
