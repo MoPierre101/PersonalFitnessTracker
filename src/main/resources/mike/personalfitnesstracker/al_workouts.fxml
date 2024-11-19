@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <children>
+                <Button layoutX="114.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid1Clicked" text="Box Jumps" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <children>
+                <Button layoutX="105.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid2Clicked" text="Seated Pistols" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <children>
+                <Button layoutX="102.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid3Clicked" text="Dumbell Lunge" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <children>
+                <Button layoutX="106.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid4Clicked" text="Barbell Lunge" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <children>
+                <Button layoutX="87.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid5Clicked" text="Bulgarian Split Squat" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <children>
+                <Button layoutX="88.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid6Clicked" text="Burpee Broad Jumps" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Button layoutX="124.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnClicked" text="Return" />
+            </children>
+        </AnchorPane>
+        <TextField alignment="CENTER" promptText="Filter" GridPane.columnIndex="1" />
+    </children>
+</GridPane>
