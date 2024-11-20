@@ -47,4 +47,16 @@ public class HomeController {
         window.centerOnScreen();
         window.show();
     }
+
+    @FXML
+    public void settings(ActionEvent actionEvent) throws IOException{
+        Parent settingsParent = FXMLLoader.load(getClass().getResource("settings.fxml"));
+        Scene chartsScene = new Scene(settingsParent);
+
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(chartsScene);
+        window.centerOnScreen();
+        window.show();
+    }
 }

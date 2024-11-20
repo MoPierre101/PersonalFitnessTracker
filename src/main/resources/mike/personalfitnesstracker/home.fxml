@@ -57,6 +57,7 @@
                <children>
                   <Button layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="92.0" text="Logout" />
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="30.0" prefWidth="92.0" text="View Stats" />
+                  <Button layoutX="645.0" layoutY="14.0" mnemonicParsing="false" onAction="#settings" prefHeight="30.0" prefWidth="92.0" text="Settings" />
                </children></AnchorPane>
          </children>
       </VBox>

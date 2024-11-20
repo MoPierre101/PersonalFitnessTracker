@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class SettingsController {
 
-  @FXML
+    @FXML
     private Pane rootPane;
 
     @FXML
@@ -32,7 +32,9 @@ public class SettingsController {
 
 
     private void setLightMode() {
+
         rootPane.getScene().getStylesheets().clear();
+
         rootPane.getScene().getStylesheets().add(getClass().getResource("/styles/lightMode.css").toExternalForm());
     }
 
@@ -58,4 +60,3 @@ public class SettingsController {
 
     }
 }
-
