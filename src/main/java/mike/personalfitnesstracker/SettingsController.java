@@ -27,7 +27,6 @@ public class SettingsController {
     @FXML
     private ComboBox fontSizeComboBox1;
 
-
     public void initialize() {
 
     }
