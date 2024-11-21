@@ -133,7 +133,22 @@ public class SignUpController
             }
         }
 
-
+        if(!PatternChecker.isValidFeet(strFeet)) {
+            if(strFeet.isEmpty()){
+                invalid += "Feet cannot be empty!\n";
+            }
+            else{
+                invalid += "Invalid metric for feet!\n";
+            }
+        }
+        if(!PatternChecker.isValidInches(strInches)) {
+            if(strInches.isEmpty()){
+                invalid += "Inches cannot be empty!\n";
+            }
+            else{
+                invalid += "Invalid metric for inches!\n";
+            }
+        }
 
         if(!PatternChecker.isCorrectWeight(strWeight)) {
             if(strWeight.isEmpty()){

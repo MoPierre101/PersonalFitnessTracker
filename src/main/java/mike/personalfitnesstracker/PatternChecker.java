@@ -82,13 +82,23 @@ public class PatternChecker {
     }
 
     /**
-     * isValidHeight -
+     * isValidFeet -
      * @param: height -
      * @return:
      */
-    public static boolean isValidHeight (String height) {
+    public static boolean isValidFeet (String feet) {
 
-        return true;
+        return feet.matches("^[4-8]$");
+    }
+
+    /**
+     * isValidFeet -
+     * @param: height -
+     * @return:
+     */
+    public static boolean isValidInches (String inches) {
+
+        return inches.matches("^([0-9]|1[0-1])$");
     }
 
     /**
@@ -98,5 +108,15 @@ public class PatternChecker {
      */
     public static boolean isValidAge (String age){
         return age.matches("^[0-9]{1,2}$");
+    }
+
+    /**
+     * isValidDate - method that checks if the user's inputted date is a valid date. For this project, the format of
+     * 'dd/mm/yyyy' will be used
+     * @param: date - the user's inputted date
+     * @return: true if it is a valid date, false otherwise
+     */
+    public static boolean isValidDate (String date){
+        return date.matches("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$");
     }
 }
