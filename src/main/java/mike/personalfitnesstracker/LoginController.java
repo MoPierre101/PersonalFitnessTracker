@@ -26,9 +26,14 @@ public class LoginController {
     private Button signupButton;
     @FXML
     private Button loginButton;
+    @FXML
+    private boolean darkmode;
 
     @javafx.fxml.FXML
     public void initialize() {
+        if ( darkmode==true) {
+            SettingsController.setDarkMode();
+        }
 
     }
 

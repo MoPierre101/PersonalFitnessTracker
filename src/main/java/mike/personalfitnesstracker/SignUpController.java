@@ -44,9 +44,14 @@ public class SignUpController
     @FXML
     private TextField enterHeightTF;
 
+private boolean darkmode;
+
+
     @javafx.fxml.FXML
     public void initialize() {
-
+        if ( darkmode==true) {
+            SettingsController.setDarkMode();
+        }
     }
 
     @FXML

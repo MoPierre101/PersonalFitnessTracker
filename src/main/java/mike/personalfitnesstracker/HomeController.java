@@ -24,6 +24,15 @@ public class HomeController {
     @FXML
     private Label totalStepLabel;
 
+    private boolean darkmode;
+
+    @javafx.fxml.FXML
+    public void initialize() {
+     if ( darkmode==true) {
+         SettingsController.setDarkMode();
+     }
+    }
+
     @FXML
     public void logout(ActionEvent event) throws IOException {
         Parent loginParent = FXMLLoader.load(getClass().getResource("choicescreen.fxml"));
