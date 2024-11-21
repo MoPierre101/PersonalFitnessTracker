@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 public class SettingsController {
 
   @FXML
-    private Pane rootPane;
+    private  static Pane rootPane;
 
     @FXML
     private RadioButton lightModeRadioButton;
@@ -31,15 +31,15 @@ public class SettingsController {
     }
 
 
-    private void setLightMode() {
+     void setLightMode() {
         rootPane.getScene().getStylesheets().clear();
         rootPane.getScene().getStylesheets().add(getClass().getResource("/styles/lightMode.css").toExternalForm());
     }
 
 
-    private void setDarkMode() {
+     static void setDarkMode() {
         rootPane.getScene().getStylesheets().clear();
-        rootPane.getScene().getStylesheets().add(getClass().getResource("/styles/darkMode.css").toExternalForm());
+        rootPane.getScene().getStylesheets().add(SettingsController.class.getResource("/styles/darkMode.css").toExternalForm());
     }
 
 

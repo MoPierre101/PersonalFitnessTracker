@@ -17,8 +17,16 @@ public class ChartsController {
     @javafx.fxml.FXML
     private BorderPane borderPane;
 
+    private boolean darkmode;
+
     @javafx.fxml.FXML
     public void initialize() {
+
+        if (darkmode == true) {
+            SettingsController.setDarkMode();
+        }
+
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
 
