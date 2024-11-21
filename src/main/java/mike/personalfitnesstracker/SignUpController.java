@@ -204,7 +204,7 @@ public class SignUpController
         if(!invalid.isEmpty()){
             Alert a = new Alert(Alert.AlertType.WARNING);
 
-            a.setHeight(300);
+            a.setHeight(350);
             a.setWidth(250);
 
             a.setHeaderText("Invalid input");
@@ -278,5 +278,18 @@ public class SignUpController
             window.centerOnScreen();
             window.show();
         }
+    }
+
+    @FXML
+    public void cancel(ActionEvent actionEvent) throws IOException {
+        //take user back to Login-screen
+        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Scene loginScene = new Scene(loginParent);
+
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(loginScene);
+        window.centerOnScreen();
+        window.show();
     }
 }
