@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+   <children>
+      <Button layoutX="274.0" layoutY="106.0" mnemonicParsing="false" onAction="#iu_VidsClicked" text="Upper" />
+      <Button layoutX="90.0" layoutY="106.0" mnemonicParsing="false" onAction="#bu_VidsClicked" text="Upper" />
+      <Button layoutX="474.0" layoutY="106.0" mnemonicParsing="false" onAction="#au_VidsClicked" text="Upper" />
+      <Label layoutX="218.0" layoutY="14.0" text="Exercise Videos">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="74.0" layoutY="57.0" prefHeight="37.0" prefWidth="99.0" text="Beginner" underline="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="256.0" layoutY="57.0" prefHeight="37.0" prefWidth="120.0" text="Intermediate" underline="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="459.0" layoutY="57.0" prefHeight="37.0" prefWidth="99.0" text="Advanced" underline="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="91.0" layoutY="175.0" mnemonicParsing="false" onAction="#bc_VidsClicked" text="Core" />
+      <Button layoutX="273.0" layoutY="175.0" mnemonicParsing="false" onAction="#ic_VidsClicked" text="Core" />
+      <Button layoutX="473.0" layoutY="175.0" mnemonicParsing="false" onAction="#ac_VidsClicked" text="Core" />
+      <Button layoutX="91.0" layoutY="248.0" mnemonicParsing="false" onAction="#bl_VidsClicked" text="Lower" />
+      <Button layoutX="273.0" layoutY="248.0" mnemonicParsing="false" onAction="#il_VidsClicked" text="Lower" />
+      <Button layoutX="473.0" layoutY="248.0" mnemonicParsing="false" onAction="#al_VidsClicked" text="Lower" />
+   </children>
+</AnchorPane>
