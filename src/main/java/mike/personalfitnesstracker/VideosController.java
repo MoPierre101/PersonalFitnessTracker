@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -260,7 +259,7 @@ public class VideosController {
     }
 
     //Back Button Pressed
-    @FXML
+    @Deprecated
     private void returnClicked(ActionEvent event) throws IOException {
 
         Parent vidsParent = FXMLLoader.load(getClass().getResource("choicescreen.fxml"));
@@ -275,275 +274,275 @@ public class VideosController {
 
     }
     //Upper Body Beginner Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void b_uppervid1Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid2Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid3Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid4Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid5Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid6Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[5]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid7Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[6]);
     }
-    @FXML
+    @Deprecated
     private void b_uppervid8Clicked(ActionEvent event) throws IOException {
         playVideo(bu_videoPath[7]);
     }
 
     //Core Beginner Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void b_corevid1Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void b_corevid2Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void b_corevid3Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void b_corevid4Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void b_corevid5Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void b_corevid6Clicked(ActionEvent event) throws IOException {
         playVideo(bc_videoPath[5]);
     }
 
     //Lower Beginner Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void b_lowervid1Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void b_lowervid2Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void b_lowervid3Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void b_lowervid4Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void b_lowervid5Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void b_lowervid6Clicked(ActionEvent event) throws IOException {
         playVideo(bl_videoPath[5]);
     }
 
     //Upper Intermediate Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void i_uppervid1Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void i_uppervid2Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void i_uppervid3Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void i_uppervid4Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void i_uppervid5Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void i_uppervid6Clicked(ActionEvent event) throws IOException {
         playVideo(iu_videoPath[5]);
     }
 
     //Core Intermediate Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void i_corevid1Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void i_corevid2Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void i_corevid3Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void i_corevid4Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void i_corevid5Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void i_corevid6Clicked(ActionEvent event) throws IOException {
         playVideo(ic_videoPath[5]);
     }
 
     //Lower Intermediate Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void i_lowervid1Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid2Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid3Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid4Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid5Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid6Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[5]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid7Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[6]);
     }
-    @FXML
+    @Deprecated
     private void i_lowervid8Clicked(ActionEvent event) throws IOException {
         playVideo(il_videoPath[7]);
     }
 
     //Upper Advanced Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void a_uppervid1Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid2Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid3Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid4Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid5Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid6Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[5]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid7Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[6]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid8Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[7]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid9Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[8]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid10Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[9]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid11Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[10]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid12Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[11]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid13Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[12]);
     }
-    @FXML
+    @Deprecated
     private void a_uppervid14Clicked(ActionEvent event) throws IOException {
         playVideo(au_videoPath[13]);
     }
 
     //Core Advanced Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void a_corevid1Clicked(ActionEvent event) throws IOException {
         playVideo(ac_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void a_corevid2Clicked(ActionEvent event) throws IOException {
         playVideo(ac_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void a_corevid3Clicked(ActionEvent event) throws IOException {
         playVideo(ac_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void a_corevid4Clicked(ActionEvent event) throws IOException {
         playVideo(ac_videoPath[3]);
     }
 
     //Lower Advanced Exercise Video Handlers
-    @FXML
+    @Deprecated
     private void a_lowervid1Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[0]);
     }
-    @FXML
+    @Deprecated
     private void a_lowervid2Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[1]);
     }
-    @FXML
+    @Deprecated
     private void a_lowervid3Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[2]);
     }
-    @FXML
+    @Deprecated
     private void a_lowervid4Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[3]);
     }
-    @FXML
+    @Deprecated
     private void a_lowervid5Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[4]);
     }
-    @FXML
+    @Deprecated
     private void a_lowervid6Clicked(ActionEvent event) throws IOException {
         playVideo(al_videoPath[5]);
     }
@@ -600,6 +599,15 @@ public class VideosController {
 
     }
 
+    @FXML
+    public void home(ActionEvent actionEvent) throws IOException{
+        Parent settingsParent = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Scene chartsScene = new Scene(settingsParent);
+
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(chartsScene);
+        window.centerOnScreen();
+        window.show();
+    }
 }
-
-
