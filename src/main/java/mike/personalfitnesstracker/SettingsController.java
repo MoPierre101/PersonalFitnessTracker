@@ -55,7 +55,6 @@ public class SettingsController {
 
     @FXML
     private void handleReturnAction() {
-
     }
 }
 
