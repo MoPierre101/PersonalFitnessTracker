@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.ChartsController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.ChartsController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -15,11 +15,6 @@
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleShowBarChart" text="Show Bar Chart" />
                   <MenuItem mnemonicParsing="false" onAction="#handleShowLineChart" text="Show Line Chart" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleUpdateData" text="Update Data" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

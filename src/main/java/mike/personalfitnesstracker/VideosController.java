@@ -601,13 +601,6 @@ public class VideosController {
 
     @FXML
     public void home(ActionEvent actionEvent) throws IOException{
-        Parent settingsParent = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene chartsScene = new Scene(settingsParent);
-
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-        window.setScene(chartsScene);
-        window.centerOnScreen();
-        window.show();
+        SceneManager.switchScene("home.fxml");
     }
 }

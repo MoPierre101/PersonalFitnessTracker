@@ -7,14 +7,8 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -175,30 +169,16 @@ public class SignUpController
 
 
         //checking height
-        double heightFeet = 0.0;
-        double heightInches = 0.0;
+        int heightFeet = 0;
+        int heightInches = 0;
 
         if(!strFeet.isEmpty()){
-            heightFeet = Double.parseDouble(strFeet);
+            heightFeet = Integer.parseInt(strFeet);
         }
 
         if(!strInches.isEmpty()){
-            heightInches = Double.parseDouble(strInches);
+            heightInches = Integer.parseInt(strInches);
         }
-
-        //local variable used to determine height of the user. Will combine feet and inches properly
-        double height;
-
-        //if the user's inches are between 0-9, then properly format height variable
-        if(heightInches >= 0 && heightInches < 10){
-            height = heightFeet + (heightInches / 10);
-        }
-        //if the user's inches are either 10 or 11, then properly format as so
-        else{
-            height = heightFeet + (heightInches / 100);
-        }
-
-
 
         //checking weight
         double curWeight = 0.0;
@@ -215,25 +195,17 @@ public class SignUpController
 
         //if the user inputted any incorrect information when creating an account, alert the user as so
         if(!invalid.isEmpty()){
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setHeight(350);
-            a.setWidth(250);
-
-            a.setHeaderText("Invalid input");
-
-            a.setContentText(invalid);
-
-            a.show();
+            AlertManager.showAlert(Alert.AlertType.WARNING, "Invalid input", invalid);
         }
+
         //otherwise, create account and add to Firebase
         else{
 
             //'Person' object that pertains to the user
-            Person addPerson = new Person(firstName, lastName, age, curWeight, height);
+            Person addPerson = new Person(firstName, lastName, age, curWeight, heightFeet, heightInches);
 
             //'Account' object created from Person object
-            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, height, targetWeight);
+            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, heightFeet, heightInches, targetWeight);
 
             //Create a request to add valid person to Firebase
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
@@ -247,13 +219,9 @@ public class SignUpController
             UserRecord userRecord;
             try{
                 userRecord = Main.fauth.createUser(request);
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setHeight(300);
-                a.setWidth(250);
 
-                a.setHeaderText("Success!");
-                a.setContentText("Account created successfully!");
-                a.show();
+                //display info alert
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Account created successfully!");
 
             }
             catch(FirebaseAuthException ex){
@@ -274,7 +242,8 @@ public class SignUpController
             data.put("Password", addAccount.getPassword());
             data.put("Email", addAccount.getEmail());
             data.put("Age", addAccount.getAge());
-            data.put("Current Height", addAccount.getHeight());
+            data.put("Current Ft", addAccount.getFeet());
+            data.put("Current Inches", addAccount.getInches());
             data.put("Current Weight", addAccount.getWeight());
             data.put("Target Weight", addAccount.getTargetWeight());
 
@@ -282,27 +251,21 @@ public class SignUpController
             ApiFuture<WriteResult> result = docRef.set(data);
 
             //take user back to Login-screen
-            Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene loginScene = new Scene(loginParent);
-
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            window.setScene(loginScene);
-            window.centerOnScreen();
-            window.show();
+            SceneManager.switchScene("login.fxml");
         }
     }
 
     @FXML
     public void cancel(ActionEvent actionEvent) throws IOException {
-        //take user back to Login-screen
-        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene loginScene = new Scene(loginParent);
-
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-        window.setScene(loginScene);
-        window.centerOnScreen();
-        window.show();
+        SceneManager.switchScene("login.fxml");
+//        //take user back to Login-screen
+//        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+//        Scene loginScene = new Scene(loginParent);
+//
+//        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//
+//        window.setScene(loginScene);
+//        window.centerOnScreen();
+//        window.show();
     }
 }

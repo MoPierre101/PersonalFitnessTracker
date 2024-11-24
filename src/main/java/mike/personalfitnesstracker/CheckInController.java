@@ -2,6 +2,8 @@ package mike.personalfitnesstracker;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,8 @@ public class CheckInController {
     @javafx.fxml.FXML
     private TextField currentDateTF;
 
+    static String docRef;
+
     @javafx.fxml.FXML
     public void initialize() {
 
@@ -32,14 +36,7 @@ public class CheckInController {
 
     @javafx.fxml.FXML
     public void cancel(ActionEvent actionEvent) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene homeScene = new Scene(homeParent);
-
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-        window.setScene(homeScene);
-        window.centerOnScreen();
-        window.show();
+        SceneManager.switchScene("login.fxml");
     }
 
     @javafx.fxml.FXML
@@ -70,50 +67,43 @@ public class CheckInController {
 
         //if either dailyWeight or currentDate are invalid, display error
         if(!invalid.isEmpty()){
-            Alert a = new Alert(Alert.AlertType.WARNING);
-
-            a.setHeight(350);
-            a.setWidth(250);
-
-            a.setHeaderText("Invalid input");
-
-            a.setContentText(invalid);
-
-            a.show();
+            AlertManager.showAlert(Alert.AlertType.WARNING, "Invalid input", invalid);
         }
         //otherwise, add data to Firebase
         else{
 
-            //creating a collection called 'Person'
-            //UUID randomization
-            DocumentReference docRef = Main.fstore.collection("WeightLog").document(UUID.randomUUID().toString());
+            //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
+            //the currently logged-in user
+            ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
+                    .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
 
-            //create a collection to store user data
-            Map<String, Object> data = new HashMap<>();
+            try{
+                QuerySnapshot querySnapshot = query.get();
+                for(DocumentSnapshot document : querySnapshot.getDocuments()){
 
-            data.put("DailyWeight", dailyWeight);
-            data.put("CurrentDate", currentDate);
+                    //Reference the document
+                    DocumentReference personDoc = document.getReference();
 
-            //write data to 'WeightLog' collection within Firebase
-            ApiFuture<WriteResult> result = docRef.set(data);
+                    //get the ID of the document
+                    docRef = document.getId();
 
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeight(300);
-            a.setWidth(250);
+                    //Add the subcollection
+                    ApiFuture<DocumentReference> subcollection = personDoc.collection("WeightLog")
+                            .add(Map.of(
+                                    "Weight", Double.parseDouble(dailyWeight),
+                                    "Date", currentDate
+                            ));
+                    System.out.println("Added to subcollection with ID: " + subcollection.get().getId());
+                }
+            }
+            catch(Exception e){
+                System.out.println("Error: " + e.getMessage());
+            }
 
-            a.setHeaderText("Success!");
-            a.setContentText("Check in completed!");
-            a.show();
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Check in completed");
 
             //go back to home screen after successful check-in
-            Parent loginParent = FXMLLoader.load(getClass().getResource("home.fxml"));
-            Scene loginScene = new Scene(loginParent);
-
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-            window.setScene(loginScene);
-            window.centerOnScreen();
-            window.show();
+            SceneManager.switchScene("home.fxml");
         }
     }
 }

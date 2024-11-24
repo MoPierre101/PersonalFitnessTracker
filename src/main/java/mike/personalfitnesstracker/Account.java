@@ -8,9 +8,10 @@ public class Account extends Person {
     private double targetWeight;
 
 
-    public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight, double height, double targetWeight) {
+    public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight,
+                   int ft, int inches, double targetWeight) {
 
-        super(firstName, lastName, age, weight, height);
+        super(firstName, lastName, age, weight, ft, inches);
         this.username = username;
         this.password = password;
         this.email = email;
@@ -18,9 +19,8 @@ public class Account extends Person {
 
     }
 
-
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -29,54 +29,79 @@ public class Account extends Person {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
     public String getFirstName() {
-        return super.getFirstName();
+        return this.firstName;
     }
 
+    @Override
     public String getLastName() {
-        return super.getLastName();
+        return this.lastName;
     }
 
+    @Override
     public void setFirstName(String firstname) {
-        super.setFirstName(firstname);
+        this.firstName = firstname;
     }
+
+    @Override
     public void setLastName(String lastname) {
-        super.setLastName(lastname);
+        this.lastName = lastname;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @Override
     public int getAge() {
-        return super.getAge();
+        return this.age;
     }
 
+    @Override
     public void setAge(int age) {
-        super.setAge(age);
+        this.age = age;
     }
 
+    @Override
     public double getWeight() {
-        return super.getWeight();
+        return this.weight;
     }
 
+    @Override
     public void setWeight(double weight) {
-        super.setWeight(weight);
+        this.weight = weight;
     }
 
-    public double getHeight() {
-        return super.getHeight();
+    @Override
+    public int getFeet() {
+        return this.ft;
+    }
+
+    @Override
+    public void setFeet(int feet) {
+        this.ft = feet;
+    }
+
+    @Override
+    public int getInches() {
+        return this.inches;
+    }
+
+    @Override
+    public void setInches(int inches) {
+        this.inches = inches;
     }
 
     public void setTargetWeight(double targetWeight) {
@@ -87,4 +112,12 @@ public class Account extends Person {
         return this.targetWeight;
     }
 
+    @Override
+    public String toString(){
+        return "User Name: " + username +
+                "\nPassword: " + password +
+                "\nEmail: " + email +
+                super.toString() +
+                "\nTarget Weight: " + targetWeight;
+    }
 }

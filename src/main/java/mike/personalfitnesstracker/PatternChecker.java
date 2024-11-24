@@ -83,7 +83,7 @@ public class PatternChecker {
 
     /**
      * isValidFeet -
-     * @param: height -
+     * @param: feet -
      * @return:
      */
     public static boolean isValidFeet (String feet) {
@@ -92,8 +92,8 @@ public class PatternChecker {
     }
 
     /**
-     * isValidFeet -
-     * @param: height -
+     * isValidInches -
+     * @param: inches -
      * @return:
      */
     public static boolean isValidInches (String inches) {

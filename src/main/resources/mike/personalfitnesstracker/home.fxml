@@ -27,7 +27,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="BMILabel" layoutX="83.0" layoutY="14.0" text="Current Calculated BMI:">
+                  <Label fx:id="BMILabel" layoutX="400.0" layoutY="22.0" text="BMI: ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -37,7 +37,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="targetCalorieLabel" layoutX="400.0" layoutY="14.0" text="Target Calorie intake for the day: ">
+                  <Label fx:id="targetWeightLabel" layoutX="83.0" layoutY="22.0" text="Target Weight: ">
                      <font>
                         <Font size="18.0" />
                      </font>

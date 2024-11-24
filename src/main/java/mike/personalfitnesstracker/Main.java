@@ -3,8 +3,10 @@ package mike.personalfitnesstracker;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -31,21 +33,19 @@ public class Main extends Application {
         fauth = FirebaseAuth.getInstance();
 
 
-
+        SceneManager.setStage(stage);
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Personal Fitness Tracker Login");
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
 
-
-
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-//        stage.setTitle("Personal Fitness Tracker");
-//        stage.setScene(scene);
-//        stage.show();
+//            Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+//            Scene loginScene = new Scene(loginParent);
+//
+//            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//            window.setScene(loginScene);
+//            window.centerOnScreen();
+//            window.show();
 
     }
 

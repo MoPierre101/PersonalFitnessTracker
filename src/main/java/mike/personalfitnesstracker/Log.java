@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class Log {
     private double weight;
-    private Date date;
+    private String date;
 
-    public Log(int weight) {
+    public Log(double weight, String date) {
         this.weight = weight;
-        this.date = new Date();
+        this.date = date;
     }
 
     public double getWeight() {
         return this.weight;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
@@ -23,8 +23,8 @@ public class Log {
         this.weight = weight;
     }
 
-    public void setDate(Date date) {
-        this.date = new Date(date.getTime());
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String toString() {
