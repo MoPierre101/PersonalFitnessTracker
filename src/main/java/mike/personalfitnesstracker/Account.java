@@ -1,21 +1,23 @@
 package mike.personalfitnesstracker;
 
-public class Account {
+public class Account extends Person {
     private String username;
     private String password;
-    private String realname;
     private String email;
-    private int age;
-    private double weight;
 
-    public Account(String username, String password, String realname, String email, int age, double weight) {
+    private double targetWeight;
+
+
+    public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight, double height, double targetWeight) {
+
+        super(firstName, lastName, age, weight, height);
         this.username = username;
         this.password = password;
-        this.realname = realname;
         this.email = email;
-        this.age = age;
-        this.weight = weight;
+        this.targetWeight = targetWeight;
+
     }
+
 
     public String getUsername() {
         return username;
@@ -34,12 +36,19 @@ public class Account {
         this.password = password;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getFirstName() {
+        return super.getFirstName();
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public String getLastName() {
+        return super.getLastName();
+    }
+
+    public void setFirstName(String firstname) {
+        super.setFirstName(firstname);
+    }
+    public void setLastName(String lastname) {
+        super.setLastName(lastname);
     }
 
     public String getEmail() {
@@ -51,18 +60,31 @@ public class Account {
     }
 
     public int getAge() {
-        return age;
+        return super.getAge();
     }
 
     public void setAge(int age) {
-        this.age = age;
+        super.setAge(age);
     }
 
     public double getWeight() {
-        return weight;
+        return super.getWeight();
     }
 
     public void setWeight(double weight) {
-        this.weight = weight;
+        super.setWeight(weight);
     }
+
+    public double getHeight() {
+        return super.getHeight();
+    }
+
+    public void setTargetWeight(double targetWeight) {
+        this.targetWeight = targetWeight;
+    }
+
+    public double getTargetWeight() {
+        return this.targetWeight;
+    }
+
 }
