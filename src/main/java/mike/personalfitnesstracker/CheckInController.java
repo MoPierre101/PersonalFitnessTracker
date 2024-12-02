@@ -84,8 +84,15 @@ public class CheckInController {
                     //Reference the document
                     DocumentReference personDoc = document.getReference();
 
+
                     //get the ID of the document
                     docRef = document.getId();
+
+                    //change the current account's weight to what the user checked-in with
+                    LoginController.currentAccount.setWeight(Double.parseDouble(dailyWeight));
+
+                    //update the 'Current Weight' field in Firebase
+                    ApiFuture<WriteResult> writeResult = personDoc.update("Current Weight", Double.parseDouble(dailyWeight));
 
                     //Add the subcollection
                     ApiFuture<DocumentReference> subcollection = personDoc.collection("WeightLog")

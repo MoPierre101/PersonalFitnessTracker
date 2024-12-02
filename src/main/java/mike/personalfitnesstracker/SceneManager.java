@@ -15,6 +15,7 @@ public class SceneManager {
         primaryStage = stage;
     }
 
+
     public static void switchScene(String fxmlFile) throws IOException {
         Parent root = FXMLLoader.load(SceneManager.class.getResource(fxmlFile));
         primaryStage.getScene().setRoot(root);
