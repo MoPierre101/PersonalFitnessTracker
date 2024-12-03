@@ -3,6 +3,7 @@ package mike.personalfitnesstracker;
 import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Bucket;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
@@ -297,7 +298,8 @@ public class VideosController {
             }
             setupPage(VideoNames,VideoUrls);
         });
-        setMainStage();
+        Platform.runLater(this::setMainStage);
+
 
     }
 
@@ -337,8 +339,12 @@ public class VideosController {
         mainContent.getChildren().addAll(mediaView, progressBar, backButton, playPauseButton);
         mainScene = new Scene(mainContent, 640, 480);
         mainStage.setScene(mainScene);
-        mainStage.show();
-        mediaPlayer.play();
+
+        mediaPlayer.setOnReady(() -> {
+            mainStage.show();
+            mediaPlayer.play();
+        });
+
 
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer.seek(Duration.ZERO);
@@ -359,10 +365,6 @@ public class VideosController {
     }
 
     private void setupPage(List <String> names, List <String> urls){
-        if (mainStage.getOwner() == null) {
-            mainStage.initOwner(bu.getScene().getWindow());
-        }
-
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
         mainContent.setAlignment(Pos.TOP_CENTER);
@@ -381,7 +383,7 @@ public class VideosController {
         mainScene = new Scene(scrollPane,250,300);
         mainStage.setScene(mainScene);
         mainStage.setTitle("Video Selection");
-        mainStage.showAndWait();
+        mainStage.show();
     }
 
     private void performSearch(){
@@ -435,12 +437,15 @@ public class VideosController {
     }
 
     private void setMainStage(){
-        mainStage = new Stage();
-        mainContent = new VBox(10);
-        mainScene = new Scene(mainContent);
-        mainStage.setScene(mainScene);
-        mainStage.centerOnScreen();
-        mainStage.initModality(Modality.APPLICATION_MODAL);
+        if(bu.getScene() != null){
+            mainStage = new Stage();
+            mainContent = new VBox(10);
+            mainScene = new Scene(mainContent);
+            mainStage.setScene(mainScene);
+            mainStage.centerOnScreen();
+            mainStage.initModality(Modality.APPLICATION_MODAL);
+            mainStage.initOwner(bu.getScene().getWindow());
+        }
 
     }
 
