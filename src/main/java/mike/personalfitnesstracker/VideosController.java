@@ -3,9 +3,7 @@ package mike.personalfitnesstracker;
 import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Bucket;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.Scene;
@@ -13,20 +11,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -36,6 +34,7 @@ import com.google.cloud.storage.StorageOptions;
 public class VideosController {
     private MediaPlayer mediaPlayer;
     Button playPauseButton;
+    ProgressBar progressBar;
     private Storage storage;
     private Bucket bucket;
     @FXML
@@ -58,6 +57,14 @@ public class VideosController {
     private Button ac;
     @FXML
     private Button al;
+    @FXML
+    private AnchorPane backPanel;
+
+    private Stage mainStage;
+    private Scene mainScene;
+    private VBox mainContent;
+    private Stack<SceneState> navigationStack = new Stack<>();
+
 
     public VideosController() {
         try {
@@ -290,6 +297,7 @@ public class VideosController {
             }
             setupPage(VideoNames,VideoUrls);
         });
+        setMainStage();
 
     }
 
@@ -297,10 +305,19 @@ public class VideosController {
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
             mediaPlayer.stop();
+
         }
+        saveCurrentState();
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
 
         playPauseButton = new Button("Pause");
         playPauseButton.setOnAction(e -> togglePlayPause());
+
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> {
+            backButton();
+        });
 
         Media media = new Media(videoPath);
         mediaPlayer = new MediaPlayer(media);
@@ -308,22 +325,19 @@ public class VideosController {
         mediaView.setFitWidth(640);
         mediaView.setFitHeight(480);
 
-        ProgressBar progressBar = new ProgressBar(0);
+        progressBar = new ProgressBar(0);
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
             double progress = newValue.toSeconds() / mediaPlayer.getTotalDuration().toSeconds();
             progressBar.setProgress(progress);
         });
- 
-        Stage vboxStage = new Stage();
-        vboxStage.setTitle("Example Video");
-        VBox vbox = new VBox();
-        vbox.setAlignment(javafx.geometry.Pos.TOP_CENTER);
-        vbox.setSpacing(25);
-        vbox.getChildren().addAll(mediaView, playPauseButton, progressBar);
-        Scene vboxScene = new Scene(vbox, 640, 480);
-        vboxStage.setScene(vboxScene);
-        vboxStage.show();
 
+        mainStage.setTitle("Example Video");
+        mainContent.setAlignment(Pos.TOP_CENTER);
+        mainContent.setSpacing(15);
+        mainContent.getChildren().addAll(mediaView, progressBar, backButton, playPauseButton);
+        mainScene = new Scene(mainContent, 640, 480);
+        mainStage.setScene(mainScene);
+        mainStage.show();
         mediaPlayer.play();
 
         mediaPlayer.setOnEndOfMedia(() -> {
@@ -345,24 +359,29 @@ public class VideosController {
     }
 
     private void setupPage(List <String> names, List <String> urls){
-        VBox vBox = new VBox(10);
+        if (mainStage.getOwner() == null) {
+            mainStage.initOwner(bu.getScene().getWindow());
+        }
 
-        vBox.setAlignment(Pos.CENTER);
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
+        mainContent.setAlignment(Pos.TOP_CENTER);
         for(int i = 0; i < names.size(); i++){
             String videoName = names.get(i).substring(3,names.get(i).length()-4);
             Button button = new Button(videoName);
             int finalI = i;
             button.setOnAction(e -> playVideo(urls.get(finalI)));
-            vBox.getChildren().add(button);
+            mainContent.getChildren().add(button);
 
         }
-        ScrollPane scrollPane = new ScrollPane(vBox);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainContent);
         scrollPane.setFitToWidth(true);
-        Stage stage = new Stage();
-        stage.setTitle("Video Selection");
-        Scene scene = new Scene(scrollPane, 200, 300);
-        stage.setScene(scene);
-        stage.show();
+
+        mainScene = new Scene(scrollPane,250,300);
+        mainStage.setScene(mainScene);
+        mainStage.setTitle("Video Selection");
+        mainStage.showAndWait();
     }
 
     private void performSearch(){
@@ -394,22 +413,81 @@ public class VideosController {
     }
 
     private void displaySearchResults(List<String> videoNames, List<String> videoUrls) {
-        Stage resultStage = new Stage();
-        resultStage.setTitle("Search Results");
-
-        VBox vBox= new VBox(10);
-
+        mainContent.getChildren().clear();
+        mainStage = new Stage();
+        mainStage.setTitle("Search Results");
+        mainContent = new VBox(10);
+        mainContent.setAlignment(Pos.TOP_CENTER);
         for (int i = 0; i < videoNames.size(); i++) {
             Button videoButton = new Button(videoNames.get(i).substring(0,videoNames.get(i).length()-4));
             int index = i;
             videoButton.setOnAction(e -> playVideo(videoUrls.get(index)));
-            vBox.getChildren().addAll(videoButton);
+            mainContent.getChildren().add(videoButton);
         }
-        vBox.setAlignment(Pos.CENTER);
-        ScrollPane scrollPane = new ScrollPane(vBox);
-        Scene scene = new Scene(scrollPane, 300, 300);
-        resultStage.setScene(scene);
-        resultStage.show();
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainContent);
+        scrollPane.setFitToWidth(true);
+        mainScene = new Scene(scrollPane, 250, 300);
+        mainStage.setScene(mainScene);
+        mainStage.show();
+
+    }
+
+    private void setMainStage(){
+        mainStage = new Stage();
+        mainContent = new VBox(10);
+        mainScene = new Scene(mainContent);
+        mainStage.setScene(mainScene);
+        mainStage.centerOnScreen();
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+
+    }
+
+    private void backButton(){
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+        }
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
+        if(!navigationStack.isEmpty()){
+            SceneState previousState = navigationStack.pop();
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(previousState.content);
+            scrollPane.setFitToWidth(true);
+            mainContent.getChildren().add(scrollPane);
+            Scene newScene = new Scene(mainContent, previousState.width, previousState.height);
+            mainStage.setTitle(previousState.title);
+            mainStage.setScene(newScene);
+        }
+    }
+
+    private void saveCurrentState(){
+        SceneState currentState = new SceneState(
+                mainContent,
+                mainStage.getTitle(),
+                mainStage.getScene().getWidth(),
+                mainStage.getScene().getHeight()
+        );
+        navigationStack.push(currentState);
+    }
+
+    private class SceneState{
+        VBox content;
+        String title;
+        double width;
+        double height;
+
+        SceneState(VBox content, String title, double width, double height){
+            this.content = new VBox(10);
+            this.content.getChildren().addAll(content.getChildren());
+            this.content.setAlignment(Pos.TOP_CENTER);
+            this.content.setSpacing(25);
+            this.title = title;
+            this.width = width;
+            this.height = height;
+
+        }
     }
 
 
