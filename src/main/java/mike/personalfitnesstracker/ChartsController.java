@@ -22,7 +22,7 @@ public class ChartsController {
     @javafx.fxml.FXML
     public void initialize() {
 
-        if (darkmode == true) {
+        if (darkmode == true ) {
             SettingsController.setDarkMode();
         }
 
