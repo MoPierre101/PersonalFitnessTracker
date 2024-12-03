@@ -1,280 +1,298 @@
 package mike.personalfitnesstracker;
 
-import com.google.cloud.storage.Blob;
+import com.google.api.gax.paging.Page;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
 
 
 public class VideosController {
     private MediaPlayer mediaPlayer;
     Button playPauseButton;
-    Storage storage = StorageOptions.getDefaultInstance().getService();
-    Bucket bucket = storage.get("");
-
+    private Storage storage;
+    private Bucket bucket;
     @FXML
     private TextField searchBox;
+    @FXML
+    private Button bu;
+    @FXML
+    private Button bc;
+    @FXML
+    private Button bl;
+    @FXML
+    private Button iu;
+    @FXML
+    private Button ic;
+    @FXML
+    private Button il;
+    @FXML
+    private Button au;
+    @FXML
+    private Button ac;
+    @FXML
+    private Button al;
+
+    public VideosController() {
+        try {
+            FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
+            StorageOptions options = StorageOptions.newBuilder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+
+            this.storage = options.getService();
+            this.bucket = storage.get("personal-fitness-tracker-66576.firebasestorage.app");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
 
     @FXML
     public void initialize() {
-        ArrayList <String> prefix = new ArrayList<>(List.of("bu/","bc/","bl/","iu/","ic/","il/","au/","ac/","al/"));
-        int index;
-        for(index = 0; index < prefix.size(); index++) {
-            for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix.get(index))).iterateAll()) {
+        ArrayList <String> prefixes = new ArrayList<>(List.of("bu/","bc/","bl/","iu/","ic/","il/","au/","ac/","al/"));
+        for(String prefix : prefixes) {
+            Page<Blob> blobs = bucket.list(Storage.BlobListOption.prefix(prefix));
+            for (Blob blob: blobs.getValues()) {
                 if (blob.getName().endsWith(".mp4")) {
-                    Map<String, String> newMeta = new HashMap<>();
-                    newMeta.put("tags", prefix.get(index).substring(0,prefix.get(index).length()-1));
-                    blob.update(Storage.BlobTargetOption.);
+                    String tag = prefix.substring(0,prefix.length()-1);
+                    Map<String,String> metadata;
+                    if (blob.getMetadata() != null) {
+                        metadata = new HashMap<>(blob.getMetadata());
+                    } else {
+                        metadata = new HashMap<>();
+                    }
+                    metadata.put("type", tag);
+                    blob.toBuilder().setMetadata(metadata).build().update(Storage.BlobTargetOption.generationMatch());
+
                 }
             }
         }
         searchBox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                performSearch(searchBox.getText());
+                performSearch();
             }
         });
-    }
-
-
-    //Beginner Options
-    @FXML
-    private void bu_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        for (Blob blob : bucket.list().iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "bu".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+        bu.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bu".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-
-    }
-
-    @FXML
-    private void bc_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Beginner/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "bc".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        bc.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bc".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-    }
-
-    @FXML
-    private void bl_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Beginner/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "bl".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        bl.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bl".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-    }
-
-    //Intermediate Options
-    @FXML
-    private void iu_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Intermediate/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "iu".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        iu.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "iu".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-    }
-
-    @FXML
-    private void ic_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Intermediate/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "ic".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        ic.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "ic".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-    }
-
-    @FXML
-    private void il_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Intermediate/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "il".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        il.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "il".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-
-    }
-
-    //Advanced Options
-    @FXML
-    private void au_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Advanced/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "au".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        au.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "au".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-
-    }
-
-    @FXML
-    private void ac_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Advanced/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "ac".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        ac.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "ac".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
-
-    }
-
-    @FXML
-    private void al_VidsClicked(ActionEvent event) throws IOException {
-        List<String> VideoUrls = new ArrayList<>();
-        List<String> VideoNames = new ArrayList<>();
-        String prefix = "Advanced/";
-        for (Blob blob : bucket.list(Storage.BlobListOption.prefix(prefix)).iterateAll()) {
-            if (blob.getName().endsWith(".mp4")) {
-                VideoNames.add(blob.getName());
-                Map<String, String> metadata = blob.getMetadata();
-                if (metadata != null && "al".equals(metadata.get("type"))) {
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    VideoUrls.add(url);
+            setupPage(VideoNames,VideoUrls);
+        });
+        al.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "al".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
                 }
             }
-        }
-        setupPage(VideoNames,VideoUrls);
-
-
+            setupPage(VideoNames,VideoUrls);
+        });
 
     }
 
-    //Back Button Pressed
-    private void returnClicked(){
-        /*
-    try {
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("choicescreen.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-        */
-    }
 
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
@@ -284,8 +302,7 @@ public class VideosController {
         playPauseButton = new Button("Pause");
         playPauseButton.setOnAction(e -> togglePlayPause());
 
-        File videoFile = new File(videoPath);
-        Media media = new Media(videoFile.toURI().toString());
+        Media media = new Media(videoPath);
         mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
         mediaView.setFitWidth(640);
@@ -328,65 +345,68 @@ public class VideosController {
     }
 
     private void setupPage(List <String> names, List <String> urls){
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        int col = 0;
-        int row = 0;
-        int maxColumns = 2;
-        Button backButton = new Button("Return");
-        backButton.setOnAction(e->returnClicked());
-        gridPane.add(backButton, col, row);
+        VBox vBox = new VBox(10);
+
+        vBox.setAlignment(Pos.CENTER);
         for(int i = 0; i < names.size(); i++){
-            Button button = new Button(names.get(i));
+            String videoName = names.get(i).substring(3,names.get(i).length()-4);
+            Button button = new Button(videoName);
             int finalI = i;
             button.setOnAction(e -> playVideo(urls.get(finalI)));
-            gridPane.add(button, col, row);
+            vBox.getChildren().add(button);
 
-            col++;
-            if(col == maxColumns){
-                col = 0;
-                row++;
-            }
         }
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        scrollPane.setFitToWidth(true);
+        Stage stage = new Stage();
+        stage.setTitle("Video Selection");
+        Scene scene = new Scene(scrollPane, 200, 300);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private void performSearch(String searchTerm){
-        searchTerm = searchBox.getText().toLowerCase();
+    private void performSearch(){
+        String searchTerm = searchBox.getText().toLowerCase();
         List<String> videoUrls = new ArrayList<>();
         List<String> videoNames = new ArrayList<>();
 
         for(Blob blob: bucket.list().iterateAll()){
             if(blob.getName().endsWith("mp4")){
-                String videoName = blob.getName().toLowerCase();
-                if(videoName.contains(searchTerm)){
-                    videoNames.add(blob.getName());
-                    String url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
-                            "/o/" + blob.getName() + "?alt=media";
-                    videoUrls.add(url);
+                String videoName = blob.getName();
+                String url = null;
+                if(videoName.toLowerCase().contains(searchTerm)){
+                    try {
+                        url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        videoUrls.add(url);
+                        videoNames.add(videoName);
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
             }
         }
-        displaySearchResults(videoUrls,videoNames);
+        if(!videoUrls.isEmpty()){
+            displaySearchResults(videoNames, videoUrls);
+        }
     }
 
     private void displaySearchResults(List<String> videoNames, List<String> videoUrls) {
         Stage resultStage = new Stage();
         resultStage.setTitle("Search Results");
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
+        VBox vBox= new VBox(10);
 
         for (int i = 0; i < videoNames.size(); i++) {
             Button videoButton = new Button(videoNames.get(i));
             int index = i;
             videoButton.setOnAction(e -> playVideo(videoUrls.get(index)));
-            gridPane.add(videoButton, 0, i);
+            vBox.getChildren().addAll(videoButton);
         }
-
-        ScrollPane scrollPane = new ScrollPane(gridPane);
-        Scene scene = new Scene(scrollPane, 400, 400);
+        vBox.setAlignment(Pos.CENTER);
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        Scene scene = new Scene(scrollPane, 300, 300);
         resultStage.setScene(scene);
         resultStage.show();
     }
