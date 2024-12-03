@@ -390,6 +390,7 @@ public class VideosController {
         if(!videoUrls.isEmpty()){
             displaySearchResults(videoNames, videoUrls);
         }
+        searchBox.clear();
     }
 
     private void displaySearchResults(List<String> videoNames, List<String> videoUrls) {
