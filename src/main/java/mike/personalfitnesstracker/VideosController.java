@@ -399,7 +399,7 @@ public class VideosController {
         VBox vBox= new VBox(10);
 
         for (int i = 0; i < videoNames.size(); i++) {
-            Button videoButton = new Button(videoNames.get(i));
+            Button videoButton = new Button(videoNames.get(i).substring(0,videoNames.get(i).length()-4));
             int index = i;
             videoButton.setOnAction(e -> playVideo(videoUrls.get(index)));
             vBox.getChildren().addAll(videoButton);
