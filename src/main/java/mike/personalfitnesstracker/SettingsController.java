@@ -26,7 +26,7 @@ public class SettingsController {
         setLightMode();
 
         fontSizeComboBox.getItems().addAll(12, 14, 16, 18, 20, 22, 24);
-        fontSizeComboBox.setValue(14); // Set a default font size
+        fontSizeComboBox.setValue(14);
         applyFontSizeButton.setOnAction(event -> handleFontSizeChange());
     }
 
