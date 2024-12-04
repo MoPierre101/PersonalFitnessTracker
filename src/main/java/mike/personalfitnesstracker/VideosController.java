@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -58,8 +57,6 @@ public class VideosController {
     private Button ac;
     @FXML
     private Button al;
-    @FXML
-    private AnchorPane backPanel;
 
     private Stage mainStage;
     private Scene mainScene;
@@ -337,7 +334,7 @@ public class VideosController {
         mainStage.setTitle("Example Video");
         mainContent.setAlignment(Pos.TOP_CENTER);
         mainContent.setSpacing(15);
-        mainContent.getChildren().addAll(mediaView, progressBar, backButton, playPauseButton);
+        mainContent.getChildren().addAll(mediaView, progressBar, playPauseButton, backButton);
         mainScene = new Scene(mainContent, 640, 480);
         mainStage.setScene(mainScene);
 
@@ -380,7 +377,7 @@ public class VideosController {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(mainContent);
         scrollPane.setFitToWidth(true);
-
+        scrollPane.setFitToHeight(true);
         mainScene = new Scene(scrollPane,250,300);
         mainStage.setScene(mainScene);
         mainStage.setTitle("Video Selection");
