@@ -307,6 +307,7 @@ public class VideosController {
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
             mediaPlayer.stop();
+            mediaPlayer.dispose();
 
         }
         saveCurrentState();
