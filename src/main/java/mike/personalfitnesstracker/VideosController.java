@@ -1,585 +1,348 @@
 package mike.personalfitnesstracker;
 
-import javafx.event.ActionEvent;
+import com.google.api.gax.paging.Page;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Bucket;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
+import javafx.scene.input.KeyCode;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.*;
+
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
+
 
 public class VideosController {
     private MediaPlayer mediaPlayer;
-
-    final private String[] bu_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Cable_Fly.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Dumbbell_Rows.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Lat_Pulldown.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Cable_Face_Pulls.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Dumbbell_Bicep_Curl.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Dumbbell_Bench_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Shoulder_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Upper/Bodyweight_Tricep_Dip.mp4"
-    };
-
-    final private String[] bc_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Ab_Crunch.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Bicycle_Crunch.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Mountain_Climbers.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Plank.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Russian_Twist.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Core/Superman.mp4"
-    };
-
-    final private String[] bl_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Forward_Lunge.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Farmer's_Carry.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Dumbbell_Deadlift.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Dumbbell_Step_Up.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Single_Leg_Calf_Raise.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Beginner/Lower/Bodyweight_Squat.mp4",
-    };
-
-    final private String[] iu_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Z_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Pull_Ups.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Hammer_Curls.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Barbell_Bench_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Dumbbell_Incline_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Upper/Barbell_Bent_Over_Row.mp4"
-    };
-
-    final private String[] ic_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Side_Plank.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/V_Sit_Up.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Pallof_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Reverse_Crunch.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Hanging_Leg_Raises.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Core/Barbell_Good_Morning.mp4"
-    };
-
-    final private String[] il_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Split_Squat.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Goblet_Squat.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Romanian_Deadlift.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Seated_Calf_Raises.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Hip_Thrust.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Front_Squat.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Barbell_Back_Squat.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Intermediate/Lower/Standing_Barbell_Calf_Raises.mp4"
-    };
-
-    final private String[] au_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Zottman_Curl.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Preacher_Curls.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Military_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Lateral_Raises.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Inverted_Rows.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Pike_Push_Up.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Clean_And_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Clapping_Push_Up.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Incline_Dumbbell_Fly.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Dumbbell_Skull_Crusher.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Close_Grip_Lat_Pulldown.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Wide_Grip_Lat_Pulldown.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Single_Arm_Landmine_Press.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Upper/Barbell_Incline_Bench_Press.mp4"
-    };
-
-    final private String[] ac_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Burpees.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Side_Plank.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Hollow_Rock.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Core/Medicine_Ball_Slams.mp4"
-    };
-
-    final private String[] al_videoPath = {
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Box_Jumps.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Seated_Pistols.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Dumbbell_Lunge.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Barbell_Lunge.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Bulgarian_Split_Squats.mp4",
-            "src/main/resources/mike/personalfitnesstracker/vids/Advanced/Lower/Burpee_Broad_Jumps.mp4"
-    };
     Button playPauseButton;
+    ProgressBar progressBar;
+    private Storage storage;
+    private Bucket bucket;
+    @FXML
+    private TextField searchBox;
+    @FXML
+    private Button bu;
+    @FXML
+    private Button bc;
+    @FXML
+    private Button bl;
+    @FXML
+    private Button iu;
+    @FXML
+    private Button ic;
+    @FXML
+    private Button il;
+    @FXML
+    private Button au;
+    @FXML
+    private Button ac;
+    @FXML
+    private Button al;
 
+    private Stage mainStage;
+    private Scene mainScene;
+    private VBox mainContent;
+    private Stack<SceneState> navigationStack = new Stack<>();
+
+
+    public VideosController() {
+        try {
+            FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
+            StorageOptions options = StorageOptions.newBuilder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+
+            this.storage = options.getService();
+            this.bucket = storage.get("personal-fitness-tracker-66576.firebasestorage.app");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
 
     @FXML
     public void initialize() {
+        ArrayList <String> prefixes = new ArrayList<>(List.of("bu/","bc/","bl/","iu/","ic/","il/","au/","ac/","al/"));
+        for(String prefix : prefixes) {
+            Page<Blob> blobs = bucket.list(Storage.BlobListOption.prefix(prefix));
+            for (Blob blob: blobs.getValues()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    String tag = prefix.substring(0,prefix.length()-1);
+                    Map<String,String> metadata;
+                    if (blob.getMetadata() != null) {
+                        metadata = new HashMap<>(blob.getMetadata());
+                    } else {
+                        metadata = new HashMap<>();
+                    }
+                    metadata.put("type", tag);
+                    blob.toBuilder().setMetadata(metadata).build().update(Storage.BlobTargetOption.generationMatch());
+
+                }
+            }
+        }
+        searchBox.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                performSearch();
+            }
+        });
+        bu.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bu".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        bc.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bc".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        bl.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "bl".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        iu.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "iu".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        ic.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "ic".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        il.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "il".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        au.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "au".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        ac.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "ac".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        al.setOnAction(event -> {
+            List<String> VideoUrls = new ArrayList<>();
+            List<String> VideoNames = new ArrayList<>();
+            for (Blob blob : bucket.list().iterateAll()) {
+                if (blob.getName().endsWith(".mp4")) {
+                    Map<String, String> metadata = blob.getMetadata();
+                    if (metadata != null && "al".equals(metadata.get("type"))) {
+                        VideoNames.add(blob.getName());
+                        String url = null;
+                        try {
+                            url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                    "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
+                        VideoUrls.add(url);
+                    }
+                }
+            }
+            setupPage(VideoNames,VideoUrls);
+        });
+        Platform.runLater(this::setMainStage);
 
-    }
-
-    //Beginner Options
-    @FXML
-    private void bu_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("bu_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-    @FXML
-    private void bc_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("bc_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    @FXML
-    private void bl_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("bl_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    //Intermediate Options
-    @FXML
-    private void iu_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("iu_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    @FXML
-    private void ic_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("ic_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    @FXML
-    private void il_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("il_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    //Advanced Options
-    @FXML
-    private void au_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("au_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    @FXML
-    private void ac_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("ac_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    @FXML
-    private void al_VidsClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("al_workouts.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-
-    //Back Button Pressed
-    @Deprecated
-    private void returnClicked(ActionEvent event) throws IOException {
-
-        Parent vidsParent = FXMLLoader.load(getClass().getResource("choicescreen.fxml"));
-        Scene vidScene = new Scene(vidsParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(vidScene);
-        window.centerOnScreen();
-        window.show();
-
-
-    }
-    //Upper Body Beginner Exercise Video Handlers
-    @Deprecated
-    private void b_uppervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[0]);
-    }
-    @Deprecated
-    private void b_uppervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[1]);
-    }
-    @Deprecated
-    private void b_uppervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[2]);
-    }
-    @Deprecated
-    private void b_uppervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[3]);
-    }
-    @Deprecated
-    private void b_uppervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[4]);
-    }
-    @Deprecated
-    private void b_uppervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[5]);
-    }
-    @Deprecated
-    private void b_uppervid7Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[6]);
-    }
-    @Deprecated
-    private void b_uppervid8Clicked(ActionEvent event) throws IOException {
-        playVideo(bu_videoPath[7]);
-    }
-
-    //Core Beginner Exercise Video Handlers
-    @Deprecated
-    private void b_corevid1Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[0]);
-    }
-    @Deprecated
-    private void b_corevid2Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[1]);
-    }
-    @Deprecated
-    private void b_corevid3Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[2]);
-    }
-    @Deprecated
-    private void b_corevid4Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[3]);
-    }
-    @Deprecated
-    private void b_corevid5Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[4]);
-    }
-    @Deprecated
-    private void b_corevid6Clicked(ActionEvent event) throws IOException {
-        playVideo(bc_videoPath[5]);
-    }
-
-    //Lower Beginner Exercise Video Handlers
-    @Deprecated
-    private void b_lowervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[0]);
-    }
-    @Deprecated
-    private void b_lowervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[1]);
-    }
-    @Deprecated
-    private void b_lowervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[2]);
-    }
-    @Deprecated
-    private void b_lowervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[3]);
-    }
-    @Deprecated
-    private void b_lowervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[4]);
-    }
-    @Deprecated
-    private void b_lowervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(bl_videoPath[5]);
-    }
-
-    //Upper Intermediate Exercise Video Handlers
-    @Deprecated
-    private void i_uppervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[0]);
-    }
-    @Deprecated
-    private void i_uppervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[1]);
-    }
-    @Deprecated
-    private void i_uppervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[2]);
-    }
-    @Deprecated
-    private void i_uppervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[3]);
-    }
-    @Deprecated
-    private void i_uppervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[4]);
-    }
-    @Deprecated
-    private void i_uppervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(iu_videoPath[5]);
-    }
-
-    //Core Intermediate Exercise Video Handlers
-    @Deprecated
-    private void i_corevid1Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[0]);
-    }
-    @Deprecated
-    private void i_corevid2Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[1]);
-    }
-    @Deprecated
-    private void i_corevid3Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[2]);
-    }
-    @Deprecated
-    private void i_corevid4Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[3]);
-    }
-    @Deprecated
-    private void i_corevid5Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[4]);
-    }
-    @Deprecated
-    private void i_corevid6Clicked(ActionEvent event) throws IOException {
-        playVideo(ic_videoPath[5]);
-    }
-
-    //Lower Intermediate Exercise Video Handlers
-    @Deprecated
-    private void i_lowervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[0]);
-    }
-    @Deprecated
-    private void i_lowervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[1]);
-    }
-    @Deprecated
-    private void i_lowervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[2]);
-    }
-    @Deprecated
-    private void i_lowervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[3]);
-    }
-    @Deprecated
-    private void i_lowervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[4]);
-    }
-    @Deprecated
-    private void i_lowervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[5]);
-    }
-    @Deprecated
-    private void i_lowervid7Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[6]);
-    }
-    @Deprecated
-    private void i_lowervid8Clicked(ActionEvent event) throws IOException {
-        playVideo(il_videoPath[7]);
-    }
-
-    //Upper Advanced Exercise Video Handlers
-    @Deprecated
-    private void a_uppervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[0]);
-    }
-    @Deprecated
-    private void a_uppervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[1]);
-    }
-    @Deprecated
-    private void a_uppervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[2]);
-    }
-    @Deprecated
-    private void a_uppervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[3]);
-    }
-    @Deprecated
-    private void a_uppervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[4]);
-    }
-    @Deprecated
-    private void a_uppervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[5]);
-    }
-    @Deprecated
-    private void a_uppervid7Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[6]);
-    }
-    @Deprecated
-    private void a_uppervid8Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[7]);
-    }
-    @Deprecated
-    private void a_uppervid9Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[8]);
-    }
-    @Deprecated
-    private void a_uppervid10Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[9]);
-    }
-    @Deprecated
-    private void a_uppervid11Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[10]);
-    }
-    @Deprecated
-    private void a_uppervid12Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[11]);
-    }
-    @Deprecated
-    private void a_uppervid13Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[12]);
-    }
-    @Deprecated
-    private void a_uppervid14Clicked(ActionEvent event) throws IOException {
-        playVideo(au_videoPath[13]);
-    }
 
-    //Core Advanced Exercise Video Handlers
-    @Deprecated
-    private void a_corevid1Clicked(ActionEvent event) throws IOException {
-        playVideo(ac_videoPath[0]);
     }
-    @Deprecated
-    private void a_corevid2Clicked(ActionEvent event) throws IOException {
-        playVideo(ac_videoPath[1]);
-    }
-    @Deprecated
-    private void a_corevid3Clicked(ActionEvent event) throws IOException {
-        playVideo(ac_videoPath[2]);
-    }
-    @Deprecated
-    private void a_corevid4Clicked(ActionEvent event) throws IOException {
-        playVideo(ac_videoPath[3]);
-    }
 
-    //Lower Advanced Exercise Video Handlers
-    @Deprecated
-    private void a_lowervid1Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[0]);
-    }
-    @Deprecated
-    private void a_lowervid2Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[1]);
-    }
-    @Deprecated
-    private void a_lowervid3Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[2]);
-    }
-    @Deprecated
-    private void a_lowervid4Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[3]);
-    }
-    @Deprecated
-    private void a_lowervid5Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[4]);
-    }
-    @Deprecated
-    private void a_lowervid6Clicked(ActionEvent event) throws IOException {
-        playVideo(al_videoPath[5]);
-    }
 
     private void playVideo(String videoPath) {
         if(mediaPlayer != null){
             mediaPlayer.stop();
-        }
+            mediaPlayer.dispose();
 
+        }
+        saveCurrentState();
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
 
         playPauseButton = new Button("Pause");
         playPauseButton.setOnAction(e -> togglePlayPause());
 
-        File videoFile = new File(videoPath);
-        Media media = new Media(videoFile.toURI().toString());
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> {
+            backButton();
+        });
+
+        Media media = new Media(videoPath);
         mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
         mediaView.setFitWidth(640);
         mediaView.setFitHeight(480);
 
-        ProgressBar progressBar = new ProgressBar(0);
+        progressBar = new ProgressBar(0);
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
             double progress = newValue.toSeconds() / mediaPlayer.getTotalDuration().toSeconds();
             progressBar.setProgress(progress);
         });
 
-        Stage vboxStage = new Stage();
-        vboxStage.setTitle("Example Video");
-        VBox vbox = new VBox();
-        vbox.setAlignment(javafx.geometry.Pos.TOP_CENTER);
-        vbox.setSpacing(25);
-        vbox.getChildren().addAll(mediaView, playPauseButton, progressBar);
-        Scene vboxScene = new Scene(vbox, 640, 480);
-        vboxStage.setScene(vboxScene);
-        vboxStage.show();
+        mainStage.setTitle("Example Video");
+        mainContent.setAlignment(Pos.TOP_CENTER);
+        mainContent.setSpacing(15);
+        mainContent.getChildren().addAll(mediaView, progressBar, playPauseButton, backButton);
+        mainScene = new Scene(mainContent, 640, 480);
+        mainStage.setScene(mainScene);
 
-        mediaPlayer.play();
+        mediaPlayer.setOnReady(() -> {
+            mainStage.show();
+            mediaPlayer.play();
+        });
+
 
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer.seek(Duration.ZERO);
@@ -599,8 +362,140 @@ public class VideosController {
 
     }
 
-    @FXML
-    public void home(ActionEvent actionEvent) throws IOException{
-        SceneManager.switchScene("home.fxml");
+    private void setupPage(List <String> names, List <String> urls){
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
+        mainContent.setAlignment(Pos.TOP_CENTER);
+        for(int i = 0; i < names.size(); i++){
+            String videoName = names.get(i).substring(3,names.get(i).length()-4);
+            Button button = new Button(videoName);
+            int finalI = i;
+            button.setOnAction(e -> playVideo(urls.get(finalI)));
+            mainContent.getChildren().add(button);
+
+        }
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainContent);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        mainScene = new Scene(scrollPane,250,300);
+        mainStage.setScene(mainScene);
+        mainStage.setTitle("Video Selection");
+        mainStage.show();
     }
+
+    private void performSearch(){
+        String searchTerm = searchBox.getText().toLowerCase();
+        List<String> videoUrls = new ArrayList<>();
+        List<String> videoNames = new ArrayList<>();
+
+        for(Blob blob: bucket.list().iterateAll()){
+            if(blob.getName().endsWith("mp4")){
+                String videoName = blob.getName();
+                String url = null;
+                if(videoName.toLowerCase().contains(searchTerm)){
+                    try {
+                        url = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() +
+                                "/o/" + URLEncoder.encode(blob.getName(), "UTF-8") + "?alt=media&token=" + blob.getMetadata().get("firebaseStorageDownloadTokens");
+                        videoUrls.add(url);
+                        videoNames.add(videoName);
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+        }
+        if(!videoUrls.isEmpty()){
+            displaySearchResults(videoNames, videoUrls);
+        }
+        searchBox.clear();
+    }
+
+    private void displaySearchResults(List<String> videoNames, List<String> videoUrls) {
+        mainContent.getChildren().clear();
+        mainStage = new Stage();
+        mainStage.setTitle("Search Results");
+        mainContent = new VBox(10);
+        mainContent.setAlignment(Pos.TOP_CENTER);
+        for (int i = 0; i < videoNames.size(); i++) {
+            Button videoButton = new Button(videoNames.get(i).substring(0,videoNames.get(i).length()-4));
+            int index = i;
+            videoButton.setOnAction(e -> playVideo(videoUrls.get(index)));
+            mainContent.getChildren().add(videoButton);
+        }
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainContent);
+        scrollPane.setFitToWidth(true);
+        mainScene = new Scene(scrollPane, 250, 300);
+        mainStage.setScene(mainScene);
+        mainStage.show();
+
+    }
+
+    private void setMainStage(){
+        if(bu.getScene() != null){
+            mainStage = new Stage();
+            mainContent = new VBox(10);
+            mainScene = new Scene(mainContent);
+            mainStage.setScene(mainScene);
+            mainStage.centerOnScreen();
+            mainStage.initModality(Modality.APPLICATION_MODAL);
+            mainStage.initOwner(bu.getScene().getWindow());
+        }
+
+    }
+
+    private void backButton(){
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+        }
+        mainContent.getChildren().clear();
+        mainContent = new VBox(10);
+        if(!navigationStack.isEmpty()){
+            SceneState previousState = navigationStack.pop();
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(previousState.content);
+            scrollPane.setFitToWidth(true);
+            mainContent.getChildren().add(scrollPane);
+            Scene newScene = new Scene(mainContent, previousState.width, previousState.height);
+            mainStage.setTitle(previousState.title);
+            mainStage.setScene(newScene);
+        }
+    }
+
+    private void saveCurrentState(){
+        SceneState currentState = new SceneState(
+                mainContent,
+                mainStage.getTitle(),
+                mainStage.getScene().getWidth(),
+                mainStage.getScene().getHeight()
+        );
+        navigationStack.push(currentState);
+    }
+
+    private class SceneState{
+        VBox content;
+        String title;
+        double width;
+        double height;
+
+        SceneState(VBox content, String title, double width, double height){
+            this.content = new VBox(10);
+            this.content.getChildren().addAll(content.getChildren());
+            this.content.setAlignment(Pos.TOP_CENTER);
+            this.content.setSpacing(25);
+            this.title = title;
+            this.width = width;
+            this.height = height;
+
+        }
+    }
+
+
+
+
 }
+
+

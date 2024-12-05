@@ -38,9 +38,14 @@ public class SignUpController
     @FXML
     private TextField enterInchesTF;
 
+private boolean darkmode;
+
+
     @javafx.fxml.FXML
     public void initialize() {
-
+        if ( darkmode==true) {
+            SettingsController.setDarkMode();
+        }
     }
 
     @Deprecated
