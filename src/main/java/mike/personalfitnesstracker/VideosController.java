@@ -6,12 +6,9 @@ import com.google.cloud.storage.Bucket;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -305,12 +302,13 @@ public class VideosController {
 
 
     private void playVideo(String videoPath) {
+        System.setProperty("prism.order", "sw");
+        saveCurrentState();
         if(mediaPlayer != null){
             mediaPlayer.stop();
             mediaPlayer.dispose();
 
         }
-        saveCurrentState();
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
 
@@ -327,6 +325,11 @@ public class VideosController {
         MediaView mediaView = new MediaView(mediaPlayer);
         mediaView.setFitWidth(640);
         mediaView.setFitHeight(480);
+        mediaView.setPreserveRatio(true);
+
+        mediaPlayer.statusProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Media Status: " + newValue);
+        });
 
         progressBar = new ProgressBar(0);
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
@@ -337,20 +340,24 @@ public class VideosController {
         mainStage.setTitle("Example Video");
         mainContent.setAlignment(Pos.TOP_CENTER);
         mainContent.setSpacing(15);
-        mainContent.getChildren().addAll(mediaView, progressBar, backButton, playPauseButton);
+        mainContent.getChildren().addAll(mediaView, progressBar, playPauseButton, backButton);
         mainScene = new Scene(mainContent, 640, 480);
         mainStage.setScene(mainScene);
-
-        mediaPlayer.setOnReady(() -> {
-            mainStage.show();
-            mediaPlayer.play();
-        });
-
 
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer.seek(Duration.ZERO);
             mediaPlayer.play();
         });
+
+        mediaPlayer.setOnReady(() -> {
+            Platform.runLater(() -> {
+                mainStage.show();
+                mediaPlayer.play();
+            });
+        });
+
+
+
 
     }
 
@@ -385,6 +392,7 @@ public class VideosController {
         mainStage.setScene(mainScene);
         mainStage.setTitle("Video Selection");
         mainStage.show();
+
     }
 
     private void performSearch(){
@@ -411,6 +419,16 @@ public class VideosController {
         }
         if(!videoUrls.isEmpty()){
             displaySearchResults(videoNames, videoUrls);
+        }else{
+            mainStage = new Stage();
+            mainStage.setTitle("Error");
+            mainContent = new VBox();
+            mainContent.setAlignment(Pos.CENTER);
+            Label errorLabel = new Label("No Results Found");
+            mainContent.getChildren().add(errorLabel);
+            mainScene = new Scene(mainContent, 150, 100);
+            mainStage.setScene(mainScene);
+            mainStage.show();
         }
         searchBox.clear();
     }
@@ -422,7 +440,7 @@ public class VideosController {
         mainContent = new VBox(10);
         mainContent.setAlignment(Pos.TOP_CENTER);
         for (int i = 0; i < videoNames.size(); i++) {
-            Button videoButton = new Button(videoNames.get(i).substring(0,videoNames.get(i).length()-4));
+            Button videoButton = new Button(videoNames.get(i).substring(0, videoNames.get(i).length() - 4));
             int index = i;
             videoButton.setOnAction(e -> playVideo(videoUrls.get(index)));
             mainContent.getChildren().add(videoButton);
@@ -453,6 +471,9 @@ public class VideosController {
     private void backButton(){
         if(mediaPlayer != null){
             mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+            progressBar = new ProgressBar();
         }
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
@@ -488,7 +509,7 @@ public class VideosController {
             this.content = new VBox(10);
             this.content.getChildren().addAll(content.getChildren());
             this.content.setAlignment(Pos.TOP_CENTER);
-            this.content.setSpacing(25);
+            this.content.setSpacing(10);
             this.title = title;
             this.width = width;
             this.height = height;

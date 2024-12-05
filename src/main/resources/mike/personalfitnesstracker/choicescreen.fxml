@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
    <children>
       <Button fx:id="iu" layoutX="269.0" layoutY="162.0" mnemonicParsing="false" text="Upper" />
       <Button fx:id="bu" layoutX="90.0" layoutY="162.0" mnemonicParsing="false" text="Upper" />
       <Button fx:id="au" layoutX="474.0" layoutY="162.0" mnemonicParsing="false" text="Upper" />
-      <Label layoutX="202.0" layoutY="14.0" text="Exercise Videos">
+      <Label layoutX="202.0" layoutY="14.0" text="Exercise Library">
          <font>
             <Font size="29.0" />
          </font>
