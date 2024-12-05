@@ -4,12 +4,17 @@ import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Bucket;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -55,8 +60,7 @@ public class VideosController {
     private Button ac;
     @FXML
     private Button al;
-    @FXML
-    private AnchorPane backPanel;
+    private InvalidationListener progressListner;
 
     private Stage mainStage;
     private Scene mainScene;
@@ -83,6 +87,7 @@ public class VideosController {
 
     @FXML
     public void initialize() {
+        //Loads all videos in Firebase Storage and assigns tags based on folder name.
         ArrayList <String> prefixes = new ArrayList<>(List.of("bu/","bc/","bl/","iu/","ic/","il/","au/","ac/","al/"));
         for(String prefix : prefixes) {
             Page<Blob> blobs = bucket.list(Storage.BlobListOption.prefix(prefix));
@@ -101,11 +106,13 @@ public class VideosController {
                 }
             }
         }
+        //Initializes search box in choicescreen to run performsearch() on enter being pressed
         searchBox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 performSearch();
             }
         });
+        //Initializes buttons on choicescreen to read through videos in firebase and run setupPage() for access via buttons
         bu.setOnAction(event -> {
             List<String> VideoUrls = new ArrayList<>();
             List<String> VideoNames = new ArrayList<>();
@@ -300,9 +307,11 @@ public class VideosController {
 
     }
 
-
+    //Video Playback handler
     private void playVideo(String videoPath) {
+        //Set to use software decoding for video playback
         System.setProperty("prism.order", "sw");
+        //Saves state for back button usage
         saveCurrentState();
         if(mediaPlayer != null){
             mediaPlayer.stop();
@@ -330,12 +339,18 @@ public class VideosController {
         mediaPlayer.statusProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Media Status: " + newValue);
         });
-
         progressBar = new ProgressBar(0);
-        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            double progress = newValue.toSeconds() / mediaPlayer.getTotalDuration().toSeconds();
-            progressBar.setProgress(progress);
-        });
+        progressListner = (observable) ->{
+            if(mediaPlayer.getTotalDuration().toSeconds() > 0)
+            {
+                double progress = mediaPlayer.getCurrentTime().toSeconds() / mediaPlayer.getTotalDuration().toSeconds();
+                Platform.runLater(()-> progressBar.setProgress(progress));
+            }
+
+        };
+        mediaPlayer.currentTimeProperty().addListener(progressListner);
+
+
 
         mainStage.setTitle("Example Video");
         mainContent.setAlignment(Pos.TOP_CENTER);
@@ -344,6 +359,7 @@ public class VideosController {
         mainScene = new Scene(mainContent, 640, 480);
         mainStage.setScene(mainScene);
 
+        //Media will start over on end
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer.seek(Duration.ZERO);
             mediaPlayer.play();
@@ -361,6 +377,7 @@ public class VideosController {
 
     }
 
+    //Play\Pause button functionality
     private void togglePlayPause() {
         if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
@@ -372,6 +389,7 @@ public class VideosController {
 
     }
 
+    //Takes list of video names and urls made in the initialize and binds them to buttons for access.
     private void setupPage(List <String> names, List <String> urls){
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
@@ -387,7 +405,7 @@ public class VideosController {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(mainContent);
         scrollPane.setFitToWidth(true);
-
+        scrollPane.setFitToHeight(true);
         mainScene = new Scene(scrollPane,250,300);
         mainStage.setScene(mainScene);
         mainStage.setTitle("Video Selection");
@@ -395,6 +413,7 @@ public class VideosController {
 
     }
 
+    //Search bar functionality. Takes input and filters through firebase videos
     private void performSearch(){
         String searchTerm = searchBox.getText().toLowerCase();
         List<String> videoUrls = new ArrayList<>();
@@ -433,6 +452,7 @@ public class VideosController {
         searchBox.clear();
     }
 
+    //Displays Search Results
     private void displaySearchResults(List<String> videoNames, List<String> videoUrls) {
         mainContent.getChildren().clear();
         mainStage = new Stage();
@@ -455,6 +475,7 @@ public class VideosController {
 
     }
 
+    //Initializes main stage
     private void setMainStage(){
         if(bu.getScene() != null){
             mainStage = new Stage();
@@ -467,13 +488,15 @@ public class VideosController {
         }
 
     }
-
+    //Back button implementation. Clears media player and gets properties back from SceneState object.
     private void backButton(){
         if(mediaPlayer != null){
+            mediaPlayer.currentTimeProperty().removeListener(progressListner);
             mediaPlayer.stop();
             mediaPlayer.dispose();
             mediaPlayer = null;
-            progressBar = new ProgressBar();
+            progressBar.setProgress(0);
+
         }
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
@@ -488,7 +511,7 @@ public class VideosController {
             mainStage.setScene(newScene);
         }
     }
-
+    //Method saving state and content states to be retrieved and returned to
     private void saveCurrentState(){
         SceneState currentState = new SceneState(
                 mainContent,
@@ -499,12 +522,14 @@ public class VideosController {
         navigationStack.push(currentState);
     }
 
+    //Class for saving and accessing stage and content states for back button functionality
     private class SceneState{
         VBox content;
         String title;
         double width;
         double height;
 
+        //Construtor
         SceneState(VBox content, String title, double width, double height){
             this.content = new VBox(10);
             this.content.getChildren().addAll(content.getChildren());
