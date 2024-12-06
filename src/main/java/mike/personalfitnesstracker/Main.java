@@ -1,5 +1,8 @@
 package mike.personalfitnesstracker;
 
+
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.auth.FirebaseAuth;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,22 +12,34 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static Firestore fstore;
+
+    public static FirebaseAuth fauth;
+
+    public final FirestoreContext contextFirebase = new FirestoreContext();
+
     @Override
     public void start(Stage stage) throws IOException {
+
+        //initialize Firebase
+        fstore = contextFirebase.firebase();
+        fauth = FirebaseAuth.getInstance();
+
+
+        SceneManager.setStage(stage);
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Personal Fitness Tracker Login");
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
 
-
-
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-//        stage.setTitle("Personal Fitness Tracker");
-//        stage.setScene(scene);
-//        stage.show();
+//            Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+//            Scene loginScene = new Scene(loginParent);
+//
+//            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//            window.setScene(loginScene);
+//            window.centerOnScreen();
+//            window.show();
 
     }
 

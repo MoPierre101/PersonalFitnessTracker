@@ -1,40 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.Settings">
-    <children>
-        <AnchorPane prefHeight="600.0" prefWidth="800.0">
-            <children>
-                <Label layoutX="350.0" layoutY="20.0" text="Settings">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-                <GridPane layoutX="150.0" layoutY="70.0" prefHeight="400.0" prefWidth="500.0">
-                    <children>
-                        <Label text="Select Theme:" />
-                        <Label text="Select Theme:" />
-                        <RadioButton fx:id="lightModeRadioButton" text="Light Mode" />
-                        <RadioButton fx:id="darkModeRadioButton" text="Dark Mode" />
-                        <Label text="Font Size:" GridPane.rowIndex="1"/>
-                        <ComboBox fx:id="fontSizeComboBox" GridPane.rowIndex="1" />
-                        <Label text="Profile Picture:" GridPane.rowIndex="2"/>
-                        <Button text="Update Picture" onAction="#handleUpdateProfilePicture" GridPane.rowIndex="2" />
-                        <Label text="Username:" GridPane.rowIndex="3"/>
-                        <Button text="Change Username" onAction="#handleChangeUsername" GridPane.rowIndex="3" />
-                    </children>
-                </GridPane>
-                <Button layoutX="350.0" layoutY="500.0" text="Return" onAction="#handleReturnAction"/>
-            </children>
-        </AnchorPane>
-    </children>
-</Pane>
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SettingsController">
+      <children>
+          <Label layoutX="350.0" layoutY="20.0" text="Settings">
+              <font>
+                  <Font size="24.0" />
+              </font>
+          </Label>
+          <GridPane layoutX="201.0" layoutY="69.0" prefHeight="400.0" prefWidth="500.0" stylesheets="@../../styles/lightMode.css">
+              <children>
+                  <Label text="Select Theme:" GridPane.columnIndex="3" />
+                  <RadioButton fx:id="lightModeRadioButton" onAction="#handleThemeChange" text="Light Mode" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <RadioButton fx:id="darkModeRadioButton" onAction="#handleThemeChange" text="Dark Mode" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                  <Label text="Font Size:" GridPane.columnIndex="5" GridPane.rowIndex="15" />
+                  <ComboBox fx:id="fontSizeComboBox" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <Label text="Profile Picture:" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                  <Button onAction="#handleUpdateProfilePicture" text="Update Picture" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                  <Label text="Username:" GridPane.columnIndex="3" GridPane.rowIndex="16" />
+                  <Button onAction="#handleChangeUsername" prefHeight="15.0" prefWidth="120.0" text="Change Username" GridPane.columnIndex="3" GridPane.rowIndex="17" />
+                  <ComboBox fx:id="fontSizeComboBox1" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+              </children>
+              <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints maxWidth="137.0" minWidth="10.0" prefWidth="137.0" />
+                  <ColumnConstraints maxWidth="122.0" minWidth="83.0" prefWidth="122.0" />
+                  <ColumnConstraints maxWidth="96.0" minWidth="10.0" prefWidth="61.0" />
+                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="31.0" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="29.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+              </rowConstraints>
+          </GridPane>
+          <Button layoutX="365.0" layoutY="498.0" onAction="#handleReturnAction" text="Return" />
+      </children>
+      <styleClass>
+          <String fx:value="combo-box" />
+          <String fx:value="label" />
+      </styleClass>
+      <stylesheets>
+          <URL value="@../../styles/darkMode.css" />
+          <URL value="@../../styles/lightMode.css" />
+      </stylesheets>
+  </AnchorPane>

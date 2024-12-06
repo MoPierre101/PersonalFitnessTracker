@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -16,35 +17,45 @@ public class HomeController {
     @FXML
     private Label welcomeLabel;
     @FXML
-    private Label targetCalorieLabel;
-    @FXML
     private Label weightLabel;
     @FXML
     private Label BMILabel;
     @FXML
     private Label totalStepLabel;
+    @FXML
+    private Label targetWeightLabel;
+
+    @javafx.fxml.FXML
+    public void initialize() {
+        welcomeLabel.setText("Welcome " + LoginController.currentAccount.getUsername() + "!");
+        targetWeightLabel.setText("Target weight: " + LoginController.currentAccount.getTargetWeight() + " lbs");
+        weightLabel.setText("Current weight: " + LoginController.currentAccount.getWeight() + " lbs");
+        BMILabel.setText("BMI: " + LoginController.currentAccount.calcBMI());
+        //come back to after!
+    }
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene loginScene = new Scene(loginParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(loginScene);
-        window.centerOnScreen();
-        window.show();
+        SceneManager.switchScene("login.fxml");
     }
 
     @FXML
     public void showGraphs(ActionEvent event) throws IOException {
-        Parent chartsParent = FXMLLoader.load(getClass().getResource("charts.fxml"));
-        Scene chartsScene = new Scene(chartsParent);
+        SceneManager.switchScene("charts.fxml");
+    }
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    @FXML
+    public void settings(ActionEvent actionEvent) throws IOException{
+        SceneManager.switchScene("settings.fxml");
+    }
 
-        window.setScene(chartsScene);
-        window.centerOnScreen();
-        window.show();
+    @FXML
+    public void workout(ActionEvent actionEvent) throws IOException {
+        SceneManager.switchScene("choicescreen.fxml");
+    }
+
+    @FXML
+    public void checkIn(ActionEvent actionEvent) throws IOException {
+        SceneManager.switchScene("checkin.fxml");
     }
 }
