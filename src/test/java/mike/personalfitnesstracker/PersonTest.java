@@ -2,12 +2,12 @@ package mike.personalfitnesstracker;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonTest {
 
     @Test
-    void testGettersAndSetters() {
+    public void testGettersAndSetters() {
         Person person = new Person("John", "Doe", 25, 180.0, 5, 10);
 
         assertEquals("John", person.getFirstName());
@@ -33,7 +33,7 @@ public class PersonTest {
     }
 
     @Test
-    void testCalcBMI() {
+    public void testCalcBMI() {
         Person person = new Person("John", "Doe", 25, 180.0, 5, 10);
 
         // Calculate BMI
@@ -50,7 +50,7 @@ public class PersonTest {
     }
 
     @Test
-    void testToString() {
+    public void testToString() {
         Person person = new Person("John", "Doe", 25, 180.0, 5, 10);
 
         String expected = "\nFirst Name: John\nLast Name: Doe\nAge: 25\nWeight: 180.0\nFeet: 5\nInches: 10";
