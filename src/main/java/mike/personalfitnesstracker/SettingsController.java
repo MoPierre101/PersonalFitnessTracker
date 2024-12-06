@@ -67,13 +67,6 @@ public class SettingsController {
 
     @FXML
     private void handleReturnAction(ActionEvent actionEvent) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene homeScene = new Scene(homeParent);
-
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-        window.setScene(homeScene);
-        window.centerOnScreen();
-        window.show();
+        SceneManager.switchScene("home.fxml");
     }
 }

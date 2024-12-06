@@ -53,9 +53,4 @@ public class HomeController {
     public void workout(ActionEvent actionEvent) throws IOException {
         SceneManager.switchScene("choicescreen.fxml");
     }
-
-    @FXML
-    public void checkIn(ActionEvent actionEvent) throws IOException {
-        SceneManager.switchScene("checkin.fxml");
-    }
 }

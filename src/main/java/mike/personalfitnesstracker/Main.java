@@ -37,24 +37,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
-
-//            Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-//            Scene loginScene = new Scene(loginParent);
-//
-//            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-//            window.setScene(loginScene);
-//            window.centerOnScreen();
-//            window.show();
-
     }
 
     public static void main(String[] args) {
         launch();
-
-        //Testing JavaFX Graphs
-
-
-        //System.exit(0);
     }
 }
