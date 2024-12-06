@@ -43,20 +43,9 @@ private boolean darkmode;
 
     @javafx.fxml.FXML
     public void initialize() {
-        if ( darkmode==true) {
-            SettingsController.setDarkMode();
-        }
-    }
-
-    @Deprecated
-    public void getLevel(ActionEvent actionEvent) {
 
     }
 
-    @Deprecated
-    public void getGoals(ActionEvent actionEvent) {
-
-    }
 
     @FXML
     public void createAccount (ActionEvent event) throws IOException {
@@ -263,14 +252,5 @@ private boolean darkmode;
     @FXML
     public void cancel(ActionEvent actionEvent) throws IOException {
         SceneManager.switchScene("login.fxml");
-//        //take user back to Login-screen
-//        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-//        Scene loginScene = new Scene(loginParent);
-//
-//        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//
-//        window.setScene(loginScene);
-//        window.centerOnScreen();
-//        window.show();
     }
 }

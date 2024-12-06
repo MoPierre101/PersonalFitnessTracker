@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.LoginController">
+<Pane fx:id="pane" stylesheets="@../../styles/default.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.LoginController">
    <children>
       <AnchorPane prefHeight="363.0" prefWidth="467.0">
          <children>
-            <Label layoutX="194.0" layoutY="2.0" text="Please Login">
+            <Label layoutX="200.0" layoutY="5.0" text="Please Login">
                <font>
                   <Font size="16.0" />
                </font>
@@ -48,12 +48,12 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Label layoutX="156.0" layoutY="283.0" text="Don't have an account?">
+            <Label layoutX="167.0" layoutY="279.0" text="Don't have an account?">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="signupButton" layoutX="156.0" layoutY="320.0" mnemonicParsing="false" onAction="#signup" prefHeight="31.0" prefWidth="165.0" text="Signup Today!">
+            <Button fx:id="signupButton" layoutX="157.0" layoutY="311.0" mnemonicParsing="false" onAction="#signup" prefHeight="31.0" prefWidth="165.0" text="Signup Today!">
                <font>
                   <Font size="15.0" />
                </font>

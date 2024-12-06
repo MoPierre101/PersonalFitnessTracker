@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="675.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SignUpController">
+<Pane fx:id="pane" prefHeight="675.0" prefWidth="1021.0" stylesheets="@../../styles/default.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SignUpController">
    <children>
       <AnchorPane prefHeight="675.0" prefWidth="1021.0">
          <children>

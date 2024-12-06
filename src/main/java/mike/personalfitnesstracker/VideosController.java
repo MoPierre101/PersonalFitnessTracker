@@ -475,6 +475,11 @@ public class VideosController {
         navigationStack.push(currentState);
     }
 
+    @FXML
+    public void home() throws IOException{
+        SceneManager.switchScene("home.fxml");
+    }
+
     private class SceneState{
         VBox content;
         String title;
