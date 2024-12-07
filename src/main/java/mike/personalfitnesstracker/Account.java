@@ -6,17 +6,27 @@ public class Account extends Person {
     private String email;
 
     private double targetWeight;
-
+    private String pfpBlobInfo;
 
     public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight,
-                   int ft, int inches, double targetWeight) {
+                   int ft, int inches, double targetWeight, String pfpBlobInfo) {
 
         super(firstName, lastName, age, weight, ft, inches);
         this.username = username;
         this.password = password;
         this.email = email;
         this.targetWeight = targetWeight;
+        this.pfpBlobInfo = pfpBlobInfo;
 
+    }
+
+
+    public String getPfpBlobInfo(){
+        return pfpBlobInfo;
+    }
+
+    public void setPfpBlobInfo(String pfpBlobInfo){
+        this.pfpBlobInfo = pfpBlobInfo;
     }
 
     public String getUsername() {
