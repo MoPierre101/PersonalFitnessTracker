@@ -40,11 +40,7 @@ public class SettingsController {
     @FXML
     private ComboBox fontSizeComboBox;
     @FXML
-    private AnchorPane rootPane;
-    @FXML
     private ComboBox fontSizeComboBox1;
-    @FXML
-    private ToggleGroup mode;
 
     private File pfpFile;
 
@@ -116,14 +112,14 @@ public class SettingsController {
 
     private void setLightMode() {
 
-        rootPane.getScene().getStylesheets().clear();
-        rootPane.getScene().getStylesheets().add(getClass().getResource("resources/styles/style.css").toExternalForm());
+//        rootPane.getScene().getStylesheets().clear();
+//        rootPane.getScene().getStylesheets().add(getClass().getResource("resources/styles/style.css").toExternalForm());
     }
 
 
     private void setDarkMode() {
-        rootPane.getScene().getStylesheets().clear();
-        rootPane.getScene().getStylesheets().add(getClass().getResource("resources/styles/darkMode.css").toExternalForm());
+//        rootPane.getScene().getStylesheets().clear();
+//        rootPane.getScene().getStylesheets().add(getClass().getResource("resources/styles/darkMode.css").toExternalForm());
     }
 
     @FXML
@@ -131,13 +127,7 @@ public class SettingsController {
         SceneManager.switchScene("home.fxml");
     }
 
-    @FXML
-    public void handleChangeUsername(ActionEvent actionEvent) {
-    }
 
-    @FXML
-    public void handleUpdateProfilePicture(ActionEvent actionEvent) {
-    }
     private String uploadProfilePicture(File file){
         String destinationPath = "pfps/OK.jpg";
 
@@ -197,13 +187,19 @@ public class SettingsController {
             File selectedFile = fileChooser.showOpenDialog(currentStage);
             if (selectedFile != null) {
                 pfpFile = selectedFile;
+                uploadProfilePicture(pfpFile);
             } else {
                 System.out.println("No file selected.");
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void handleChangeUsername(ActionEvent actionEvent) {
     }
 }
