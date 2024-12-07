@@ -1,15 +1,26 @@
 package mike.personalfitnesstracker;
 
 import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,21 +48,19 @@ public class SignUpController
     private TextField enterFeetTF;
     @FXML
     private TextField enterInchesTF;
+    @FXML
+    private Button chooseImageBtn;
+
+    private File pfpFile;
+
+    private boolean darkmode;
+
 
     @javafx.fxml.FXML
     public void initialize() {
 
     }
 
-    @Deprecated
-    public void getLevel(ActionEvent actionEvent) {
-
-    }
-
-    @Deprecated
-    public void getGoals(ActionEvent actionEvent) {
-
-    }
 
     @FXML
     public void createAccount (ActionEvent event) throws IOException {
@@ -67,6 +76,14 @@ public class SignUpController
         String strInches = enterInchesTF.getText();
         String strWeight = enterCurWeightTF.getText();
         String strTargetWeight = enterTargetWeightTF.getText();
+
+
+
+
+
+
+
+
 
         //local variable used to output error message to user if incorrect data is inputted
         String invalid = "";
@@ -205,7 +222,7 @@ public class SignUpController
             Person addPerson = new Person(firstName, lastName, age, curWeight, heightFeet, heightInches);
 
             //'Account' object created from Person object
-            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, heightFeet, heightInches, targetWeight);
+            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, heightFeet, heightInches, targetWeight, uploadProfilePicture(pfpFile));
 
             //Create a request to add valid person to Firebase
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
@@ -222,6 +239,7 @@ public class SignUpController
 
                 //display info alert
                 AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Account created successfully!");
+
 
             }
             catch(FirebaseAuthException ex){
@@ -246,6 +264,7 @@ public class SignUpController
             data.put("Current Inches", addAccount.getInches());
             data.put("Current Weight", addAccount.getWeight());
             data.put("Target Weight", addAccount.getTargetWeight());
+            data.put("Profile Picture BlobInfo", addAccount.getPfpBlobInfo());
 
             //write data to 'Person' collection within Firebase
             ApiFuture<WriteResult> result = docRef.set(data);
@@ -258,14 +277,78 @@ public class SignUpController
     @FXML
     public void cancel(ActionEvent actionEvent) throws IOException {
         SceneManager.switchScene("login.fxml");
-//        //take user back to Login-screen
-//        Parent loginParent = FXMLLoader.load(getClass().getResource("login.fxml"));
-//        Scene loginScene = new Scene(loginParent);
-//
-//        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//
-//        window.setScene(loginScene);
-//        window.centerOnScreen();
-//        window.show();
     }
+
+
+
+    private String uploadProfilePicture(File file){
+        String destinationPath = "pfps/OK.jpg";
+
+        if(file.exists()){
+
+
+            try {
+                // Initialize Firebase App
+                FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
+                StorageOptions options = StorageOptions.newBuilder()
+                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                        .build();
+
+                Storage storage = options.getService();
+
+                String bucketName = "personal-fitness-tracker-66576.firebasestorage.app"; // Replace with your bucket name
+                destinationPath = "pfps/" + UUID.randomUUID() +  file.getName(); // Path in the bucket'
+                String filename = file.getName();
+                String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+                // Read the file and upload to the bucket
+                byte[] fileBytes = Files.readAllBytes(file.toPath());
+                BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, destinationPath)
+                        .setContentType("image/"+fileExtension) // Set the MIME type
+                        .build();
+                storage.create(blobInfo, fileBytes);
+
+                System.out.println("File uploaded successfully to: " + destinationPath);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+        return destinationPath;
+    }
+
+
+    @FXML
+    public void chooseFileButtonClicked(ActionEvent actionEvent) {
+        handleChooseFileButtonClicked();
+    }
+
+    private void handleChooseFileButtonClicked(){
+        try {
+            // Configure FileChooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select an Image to Upload");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+            );
+
+            // Show FileChooser and get the selected file
+            Stage currentStage = (Stage) chooseImageBtn.getScene().getWindow();
+            File selectedFile = fileChooser.showOpenDialog(currentStage);
+            if (selectedFile != null) {
+                pfpFile = selectedFile;
+            } else {
+                System.out.println("No file selected.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

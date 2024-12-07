@@ -6,17 +6,27 @@ public class Account extends Person {
     private String email;
 
     private double targetWeight;
-
+    private String pfpBlobInfo;
 
     public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight,
-                   int ft, int inches, double targetWeight) {
+                   int ft, int inches, double targetWeight, String pfpBlobInfo) {
 
         super(firstName, lastName, age, weight, ft, inches);
         this.username = username;
         this.password = password;
         this.email = email;
         this.targetWeight = targetWeight;
+        this.pfpBlobInfo = pfpBlobInfo;
 
+    }
+
+
+    public String getPfpBlobInfo(){
+        return pfpBlobInfo;
+    }
+
+    public void setPfpBlobInfo(String pfpBlobInfo){
+        this.pfpBlobInfo = pfpBlobInfo;
     }
 
     public String getUsername() {
@@ -113,11 +123,17 @@ public class Account extends Person {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "User Name: " + username +
                 "\nPassword: " + password +
                 "\nEmail: " + email +
-                super.toString() +
-                "\nTarget Weight: " + targetWeight;
+                "\nFirst Name: " + firstName +
+                "\nLast Name: " + lastName +
+                "\nAge: " + age +
+                "\nWeight: " + weight +
+                "\nFeet: " + ft +
+                "\nInches: " + inches +
+                "\nTarget Weight: " + targetWeight +
+                "\nProfile Picture Info: " + pfpBlobInfo;
     }
 }

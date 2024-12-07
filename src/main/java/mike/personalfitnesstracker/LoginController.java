@@ -79,6 +79,8 @@ public class LoginController {
                         double currWeight = (Double)document.getData().get("Current Weight");
 
                         double targetWeight = (Double)document.getData().get("Target Weight");
+                        String uid = document.getId();
+                        System.out.println(uid);
 
                         //initialize 'currentAccount' with the current account that was logged into
                         currentAccount = new Account(fbUsername
@@ -91,7 +93,9 @@ public class LoginController {
                                 ,ft
                                 ,inches
                                 ,targetWeight
-                                );
+                                ,(String)document.getData().get("Profile Picture BlobInfo")
+                        );
+
                         System.out.println(currentAccount);
                         break;
                     }
