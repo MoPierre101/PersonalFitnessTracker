@@ -16,6 +16,7 @@ module mike.personalfitnesstracker {
     requires google.cloud.storage;
     requires com.google.common;
     requires gax;
+    requires org.testng;
 
 
     opens mike.personalfitnesstracker to javafx.fxml;

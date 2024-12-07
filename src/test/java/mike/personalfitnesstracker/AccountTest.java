@@ -7,7 +7,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class AccountTest {
 
     @Test
-    void testGettersAndSetters() {
+    public void testGettersAndSetters() {
         Account account = new Account("user123", "Pass@123", "user@example.com",
                 "John", "Doe", 25, 180.0, 5, 10, 170.0);
 
@@ -46,7 +46,7 @@ public class AccountTest {
     }
 
     @Test
-    void testToString() {
+    public void testToString() {
         Account account = new Account("user123", "Pass@123", "user@example.com",
                 "John", "Doe", 25, 180.0, 5, 10, 170.0);
 

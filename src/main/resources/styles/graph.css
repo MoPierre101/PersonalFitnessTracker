@@ -1,0 +1,94 @@
+/* General Settings */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #6200ee; /* Purple color */
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #3700b3; /* Darker purple for hover */
+}
+
+.button:pressed {
+    -fx-background-color: #bb86fc; /* Lighter purple for pressed */
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #333; /* Dark gray */
+    -fx-font-size: 14px;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+    -fx-padding: 8;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.text-field:focused {
+    -fx-border-color: #6200ee;
+    -fx-border-width: 2px;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: white;
+    -fx-padding: 8;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #6200ee;
+    -fx-border-width: 2px;
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Tooltips */
+.tooltip {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-padding: 5;
+    -fx-font-size: 12px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    -fx-accent: #6200ee;
+    -fx-background-color: #ccc;
+}
+
+/* Tabs */
+.tab {
+    -fx-background-color: #6200ee;
+    -fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color: #3700b3;
+    -fx-text-fill: white;
+}

@@ -23,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -520,6 +521,11 @@ public class VideosController {
                 mainStage.getScene().getHeight()
         );
         navigationStack.push(currentState);
+    }
+
+    @FXML
+    public void exit() throws IOException {
+        SceneManager.switchScene("home.fxml");
     }
 
     //Class for saving and accessing stage and content states for back button functionality
