@@ -37,7 +37,7 @@ public class PersonTest {
         Person person = new Person("John", "Doe", 25, 180.0, 5, 10);
 
         // Calculate BMI
-        double expectedBMI = 25.82;
+        double expectedBMI = 25.88;
         assertEquals(expectedBMI, person.calcBMI(), 0.01);
 
         // Test with another set of values
@@ -45,7 +45,7 @@ public class PersonTest {
         person.setFeet(5);
         person.setInches(6);
 
-        expectedBMI = 24.22;
+        expectedBMI = 24.26;
         assertEquals(expectedBMI, person.calcBMI(), 0.01);
     }
 

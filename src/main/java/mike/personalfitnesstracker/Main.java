@@ -23,8 +23,8 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
 
         //initialize Firebase
-        //fstore = contextFirebase.firebase();
-        //fauth = FirebaseAuth.getInstance();
+        fstore = contextFirebase.firebase();
+        fauth = FirebaseAuth.getInstance();
 
 
         SceneManager.setStage(stage);
@@ -50,6 +50,5 @@ public class Main extends Application {
 
 
         //System.exit(0);
-        //hi
     }
 }
