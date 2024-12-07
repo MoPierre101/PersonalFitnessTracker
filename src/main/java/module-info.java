@@ -13,6 +13,7 @@ module mike.personalfitnesstracker {
     requires google.cloud.core;
     requires com.google.api.apicommon;
     requires google.cloud.storage;
+    requires gax;
 
     opens mike.personalfitnesstracker to javafx.fxml;
     exports mike.personalfitnesstracker;
