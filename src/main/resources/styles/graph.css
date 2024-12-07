@@ -1,0 +1,32 @@
+.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, red, orange, yellow, green);
+    -fx-background-insets: 0;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, red, orange, yellow, green);
+}
+
+.default-color1.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, orange, yellow, green);
+}
+
+.default-color2.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, yellow, green);
+}
+
+.default-color3.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, green, yellow);
+}
+
+.default-color4.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, green);
+}
+
+.chart {
+    -fx-background-color: black;
+    -fx-legend-background: black;
+    -fx-legend-text-fill: white;
+    -fx-axis-text-fill: white;
+    -fx-axis-tick-mark-fill: white;
+}
