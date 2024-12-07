@@ -34,6 +34,9 @@ import com.google.cloud.storage.StorageOptions;
 
 
 
+
+
+
 public class VideosController {
     private MediaPlayer mediaPlayer;
     Button playPauseButton;
@@ -66,6 +69,7 @@ public class VideosController {
     private Scene mainScene;
     private VBox mainContent;
     private Stack<SceneState> navigationStack = new Stack<>();
+
 
 
     public VideosController() {
@@ -309,15 +313,22 @@ public class VideosController {
 
     //Video Playback handler
     private void playVideo(String videoPath) {
+        saveCurrentState();//Saves state for back button usage
+
         //Set to use software decoding for video playback
         System.setProperty("prism.order", "sw");
-        //Saves state for back button usage
-        saveCurrentState();
         if(mediaPlayer != null){
             mediaPlayer.stop();
             mediaPlayer.dispose();
 
         }
+        if(navigationStack.size() > 1){
+            while(navigationStack.size() > 1){
+                navigationStack.pop();
+            }
+        }
+
+
         mainContent.getChildren().clear();
         mainContent = new VBox(10);
 
@@ -363,6 +374,22 @@ public class VideosController {
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer.seek(Duration.ZERO);
             mediaPlayer.play();
+        });
+
+        mediaPlayer.setOnError(() -> {
+            System.out.println("Media Status: " + mediaPlayer.getError());
+            mediaPlayer.dispose();
+            Platform.runLater(()->{
+                playVideo(videoPath); // Retry playback
+            });
+
+        });
+
+        mediaPlayer.setOnStalled(() -> {
+            mediaPlayer.dispose();
+            Platform.runLater(()->{
+                playVideo(videoPath); // Retry playback
+            });
         });
 
         mediaPlayer.setOnReady(() -> {
@@ -529,7 +556,7 @@ public class VideosController {
         double width;
         double height;
 
-        //Construtor
+        //Constructor
         SceneState(VBox content, String title, double width, double height){
             this.content = new VBox(10);
             this.content.getChildren().addAll(content.getChildren());
