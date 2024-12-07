@@ -2,23 +2,23 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" prefHeight="576.0" prefWidth="844.0" stylesheets="@../../styles/default.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.HomeController">
+<AnchorPane fx:id="anchor" prefHeight="576.0" prefWidth="844.0" stylesheets="@../../styles/default.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.HomeController">
    <children>
       <VBox prefHeight="175.0" prefWidth="800.0">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Circle fill="DODGERBLUE" layoutX="101.0" layoutY="88.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label fx:id="welcomeLabel" layoutX="196.0" layoutY="73.0" text="Welcome back, Username!">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="avatorImageView" fitHeight="119.0" fitWidth="143.0" layoutX="30.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </children>
