@@ -8,8 +8,6 @@ public class Account extends Person {
     private double targetWeight;
     private String pfpBlobInfo;
 
-    private boolean darkMode;
-
     public Account(String username, String password, String email, String firstName, String lastName ,int age, double weight,
                    int ft, int inches, double targetWeight, String pfpBlobInfo) {
 
@@ -19,7 +17,6 @@ public class Account extends Person {
         this.email = email;
         this.targetWeight = targetWeight;
         this.pfpBlobInfo = pfpBlobInfo;
-        this.darkMode = false;
 
     }
 
@@ -39,13 +36,6 @@ public class Account extends Person {
     public void setUsername(String username) {
         this.username = username;
 
-    }
-
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
-    }
-    public boolean getDarkMode() {
-        return this.darkMode;
     }
 
     public String getPassword() {
@@ -133,11 +123,17 @@ public class Account extends Person {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "User Name: " + username +
                 "\nPassword: " + password +
                 "\nEmail: " + email +
-                super.toString() +
-                "\nTarget Weight: " + targetWeight;
+                "\nFirst Name: " + firstName +
+                "\nLast Name: " + lastName +
+                "\nAge: " + age +
+                "\nWeight: " + weight +
+                "\nFeet: " + ft +
+                "\nInches: " + inches +
+                "\nTarget Weight: " + targetWeight +
+                "\nProfile Picture Info: " + pfpBlobInfo;
     }
 }

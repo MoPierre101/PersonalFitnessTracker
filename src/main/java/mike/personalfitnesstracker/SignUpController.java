@@ -4,10 +4,9 @@ import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
-import com.google.cloud.storage.*;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import javafx.event.ActionEvent;
@@ -54,7 +53,7 @@ public class SignUpController
 
     private File pfpFile;
 
-private boolean darkmode;
+    private boolean darkmode;
 
 
     @javafx.fxml.FXML
@@ -266,7 +265,6 @@ private boolean darkmode;
             data.put("Current Weight", addAccount.getWeight());
             data.put("Target Weight", addAccount.getTargetWeight());
             data.put("Profile Picture BlobInfo", addAccount.getPfpBlobInfo());
-            data.put("Dark Mode", false);
 
             //write data to 'Person' collection within Firebase
             ApiFuture<WriteResult> result = docRef.set(data);
