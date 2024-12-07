@@ -2,6 +2,7 @@ package mike.personalfitnesstracker;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,9 @@ import java.nio.file.Files;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static mike.personalfitnesstracker.SceneManager.getPrimaryStage;
+
+
 public class HomeController {
 
     @FXML
@@ -39,6 +43,12 @@ public class HomeController {
     @FXML
     private ImageView avatorImageView;
 
+
+
+
+
+
+
     @javafx.fxml.FXML
     public void initialize() {
         welcomeLabel.setText("Welcome " + LoginController.currentAccount.getUsername() + "!");
@@ -48,7 +58,23 @@ public class HomeController {
 
 
         loadProfilePicture();
+
+
+        // Add a listener to the name property
+//        Main.isActive.addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                System.out.println("True");
+//                loadProfilePicture();
+//            }else{
+//                System.out.println("False");
+//            }
+//        });
+
+
+
     }
+
+
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
@@ -139,6 +165,7 @@ public class HomeController {
         System.out.println(profilePictureUrl);
         return profilePictureUrl;
     }
+
 
 
 }

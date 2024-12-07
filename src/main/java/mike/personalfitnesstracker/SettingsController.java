@@ -124,7 +124,9 @@ public class SettingsController {
 
     @FXML
     private void handleReturnAction(ActionEvent actionEvent) throws IOException {
+
         SceneManager.switchScene("home.fxml");
+
     }
 
 
@@ -187,7 +189,8 @@ public class SettingsController {
             File selectedFile = fileChooser.showOpenDialog(currentStage);
             if (selectedFile != null) {
                 pfpFile = selectedFile;
-                uploadProfilePicture(pfpFile);
+                updatePfpDB(uploadProfilePicture(pfpFile));
+
             } else {
                 System.out.println("No file selected.");
             }
@@ -202,4 +205,31 @@ public class SettingsController {
     @FXML
     public void handleChangeUsername(ActionEvent actionEvent) {
     }
+
+    private void updatePfpDB(String blobInfo){
+        //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
+        //the currently logged-in user
+        ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
+                .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
+
+        try{
+            QuerySnapshot querySnapshot = query.get();
+            for(DocumentSnapshot document : querySnapshot.getDocuments()){
+
+                //Reference the document
+                DocumentReference personDoc = document.getReference();
+
+                //change the current account's weight to what the user checked-in with
+                LoginController.currentAccount.setPfpBlobInfo(blobInfo);
+
+                //update the 'Current Weight' field in Firebase
+                ApiFuture<WriteResult> writeResult = personDoc.update("Profile Picture BlobInfo", blobInfo);
+                System.out.println(blobInfo);
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 }

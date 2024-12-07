@@ -25,5 +25,12 @@ public class SceneManager {
             primaryStage.getScene().getStylesheets().clear();
             primaryStage.getScene().getStylesheets().add(SceneManager.class.getResource("resources/styles/style.css").toExternalForm());
         }
+
     }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+
 }
