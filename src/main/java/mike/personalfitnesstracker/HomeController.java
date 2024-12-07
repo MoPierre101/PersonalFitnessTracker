@@ -45,7 +45,7 @@ public class HomeController {
         targetWeightLabel.setText("Target weight: " + LoginController.currentAccount.getTargetWeight() + " lbs");
         weightLabel.setText("Current weight: " + LoginController.currentAccount.getWeight() + " lbs");
         BMILabel.setText("BMI: " + LoginController.currentAccount.calcBMI());
-        //come back to after!
+
 
         loadProfilePicture();
     }

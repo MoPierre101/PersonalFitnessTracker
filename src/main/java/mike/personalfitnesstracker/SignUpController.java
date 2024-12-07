@@ -266,6 +266,7 @@ private boolean darkmode;
             data.put("Current Weight", addAccount.getWeight());
             data.put("Target Weight", addAccount.getTargetWeight());
             data.put("Profile Picture BlobInfo", addAccount.getPfpBlobInfo());
+            data.put("Dark Mode", false);
 
             //write data to 'Person' collection within Firebase
             ApiFuture<WriteResult> result = docRef.set(data);
