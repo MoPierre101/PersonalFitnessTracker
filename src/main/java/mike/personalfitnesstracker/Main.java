@@ -2,6 +2,8 @@ package mike.personalfitnesstracker;
 
 
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static BooleanProperty isActive = new SimpleBooleanProperty(false);
 
     public static Firestore fstore;
 
