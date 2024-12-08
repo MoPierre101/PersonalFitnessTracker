@@ -1,5 +1,7 @@
 package mike.personalfitnesstracker;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertEquals;

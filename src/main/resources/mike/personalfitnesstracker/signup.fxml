@@ -93,17 +93,17 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <Button layoutX="511.0" layoutY="628.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="126.0" text="Create Account">
+            <Button layoutX="511.0" layoutY="628.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="41.0" prefWidth="168.0" styleClass="button-green" text="Create Account">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button layoutX="275.0" layoutY="628.0" mnemonicParsing="false" onAction="#cancel" prefHeight="34.0" prefWidth="126.0" text="Cancel">
+            <Button layoutX="275.0" layoutY="628.0" mnemonicParsing="false" onAction="#cancel" prefHeight="34.0" prefWidth="126.0" styleClass="button-red" text="Cancel">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button fx:id="chooseImageBtn" layoutX="755.0" layoutY="620.0" mnemonicParsing="false" onAction="#chooseFileButtonClicked" text="ChooseProfilePicture" />
+            <Button fx:id="chooseImageBtn" layoutX="755.0" layoutY="620.0" mnemonicParsing="false" onAction="#chooseFileButtonClicked" styleClass="button-blue" text="ChooseProfilePicture" />
          </children>
       </AnchorPane>
    </children>

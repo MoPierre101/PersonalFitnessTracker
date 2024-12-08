@@ -21,9 +21,6 @@ public class SceneManager {
         primaryStage.getScene().setRoot(root);
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
-        if(LoginController.currentAccount.getDarkMode()){
-            primaryStage.getScene().getStylesheets().clear();
-            primaryStage.getScene().getStylesheets().add(SceneManager.class.getResource("resources/styles/style.css").toExternalForm());
-        }
+
     }
 }

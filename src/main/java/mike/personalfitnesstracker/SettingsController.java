@@ -56,56 +56,9 @@ public class SettingsController {
     private void handleThemeChange() {
         if (lightModeRadioButton.isSelected()) {
             setLightMode();
-            //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
-            //the currently logged-in user
-            ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
-                    .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
-
-            try{
-                QuerySnapshot querySnapshot = query.get();
-                for(DocumentSnapshot document : querySnapshot.getDocuments()){
-
-                    //Reference the document
-                    DocumentReference personDoc = document.getReference();
-
-                    //change the current account's weight to what the user checked-in with
-                    LoginController.currentAccount.setDarkMode(false);
-
-                    //update the 'Current Weight' field in Firebase
-                    ApiFuture<WriteResult> writeResult = personDoc.update("Dark Mode", false);
-
-                }
-            }
-            catch(Exception e){
-                System.out.println("Error: " + e.getMessage());
-            }
 
         } else if (darkModeRadioButton.isSelected()) {
-            setDarkMode();
 
-            //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
-            //the currently logged-in user
-            ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
-                    .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
-
-            try{
-                QuerySnapshot querySnapshot = query.get();
-                for(DocumentSnapshot document : querySnapshot.getDocuments()){
-
-                    //Reference the document
-                    DocumentReference personDoc = document.getReference();
-
-                    //change the current account's weight to what the user checked-in with
-                    LoginController.currentAccount.setDarkMode(true);
-
-                    //update the 'Current Weight' field in Firebase
-                    ApiFuture<WriteResult> writeResult = personDoc.update("Dark Mode", true);
-
-                }
-            }
-            catch(Exception e){
-                System.out.println("Error: " + e.getMessage());
-            }
         }
     }
 
