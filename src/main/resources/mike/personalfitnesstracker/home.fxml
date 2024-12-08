@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="536.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.HomeController">
+<AnchorPane prefHeight="536.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.HomeController">
    <children>
       <VBox prefHeight="175.0" prefWidth="800.0">
          <children>
@@ -52,7 +52,7 @@
                <children>
                   <Button layoutX="152.0" layoutY="73.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="92.0" styleClass="button-red" stylesheets="@../../styles/style.css" text="Logout" />
                   <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="41.0" prefWidth="112.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="View Stats" />
-                  <Button layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#settings" prefHeight="30.0" prefWidth="92.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Settings" />
+                  <Button fx:id="chooseImageBtn" layoutX="519.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseFileButtonClicked" prefHeight="41.0" prefWidth="140.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Change PFP" />
                   <Button layoutX="538.0" layoutY="73.0" mnemonicParsing="false" onAction="#workout" prefHeight="41.0" prefWidth="102.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Workout" />
                </children></AnchorPane>
          </children>
