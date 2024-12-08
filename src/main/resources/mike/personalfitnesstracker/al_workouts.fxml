@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,37 +21,37 @@
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="114.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid1Clicked" text="Box Jumps" />
+                <Button layoutX="81.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid1Clicked" styleClass="button-green" text="Box Jumps" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="105.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid2Clicked" text="Seated Pistols" />
+                <Button layoutX="68.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid2Clicked" styleClass="button-green" text="Seated Pistols" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="102.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid3Clicked" text="Dumbell Lunge" />
+                <Button layoutX="65.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid3Clicked" styleClass="button-yellow" text="Dumbell Lunge" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="106.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid4Clicked" text="Barbell Lunge" />
+                <Button layoutX="70.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid4Clicked" styleClass="button-yellow" text="Barbell Lunge" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="87.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid5Clicked" text="Bulgarian Split Squat" />
+                <Button layoutX="44.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid5Clicked" styleClass="button-red" text="Bulgarian Split Squat" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="88.0" layoutY="38.0" mnemonicParsing="false" onAction="#a_lowervid6Clicked" text="Burpee Broad Jumps" />
+                <Button layoutX="44.0" layoutY="25.0" mnemonicParsing="false" onAction="#a_lowervid6Clicked" styleClass="button-red" text="Burpee Broad Jumps" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Button layoutX="124.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnClicked" text="Return" />
+                <Button layoutX="101.0" layoutY="25.0" mnemonicParsing="false" onAction="#returnClicked" styleClass="button-blue" text="Return" />
             </children>
         </AnchorPane>
         <TextField alignment="CENTER" promptText="Filter" GridPane.columnIndex="1" />

@@ -1,20 +1,26 @@
 package mike.personalfitnesstracker;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class HomeController {
@@ -39,7 +45,7 @@ public class HomeController {
         targetWeightLabel.setText("Target weight: " + LoginController.currentAccount.getTargetWeight() + " lbs");
         weightLabel.setText("Current weight: " + LoginController.currentAccount.getWeight() + " lbs");
         BMILabel.setText("BMI: " + LoginController.currentAccount.calcBMI());
-        //come back to after!
+
 
         loadProfilePicture();
     }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,48 +22,48 @@
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="113.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid1Clicked" text="Split Squat" />
+                <Button layoutX="83.0" layoutY="31.0" mnemonicParsing="false" onAction="#i_lowervid1Clicked" styleClass="button-green" text="Split Squat" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button layoutX="107.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid2Clicked" text="Goblet Squat" />
+                <Button layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#i_lowervid2Clicked" styleClass="button-green" text="Goblet Squat" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="91.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid3Clicked" text="Romanian DeadLift" />
+                <Button layoutX="48.0" layoutY="32.0" mnemonicParsing="false" onAction="#i_lowervid3Clicked" styleClass="button-yellow" text="Romanian DeadLift" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <Button layoutX="94.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid4Clicked" text="Seated Calf Raises" />
+                <Button layoutX="49.0" layoutY="31.0" mnemonicParsing="false" onAction="#i_lowervid4Clicked" styleClass="button-yellow" text="Seated Calf Raises" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="91.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid5Clicked" text="Hip Thrust (Barbell)" />
+                <Button layoutX="46.0" layoutY="38.0" mnemonicParsing="false" onAction="#i_lowervid5Clicked" styleClass="button-red" text="Hip Thrust (Barbell)" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <children>
-                <Button layoutX="88.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid6Clicked" text="Front Squat (Barbell)" />
+                <Button layoutX="44.0" layoutY="31.0" mnemonicParsing="false" onAction="#i_lowervid6Clicked" styleClass="button-red" text="Front Squat (Barbell)" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Button layoutX="124.0" layoutY="27.0" mnemonicParsing="false" onAction="#returnClicked" text="Return" />
+                <Button layoutX="101.0" layoutY="31.0" mnemonicParsing="false" onAction="#returnClicked" styleClass="button-blue" text="Return" />
             </children>
         </AnchorPane>
         <TextField alignment="CENTER" promptText="Filter" GridPane.columnIndex="1" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
          <children>
-            <Button layoutX="89.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid7Clicked" text="Back Squat (Barbell)" />
+            <Button layoutX="42.0" layoutY="31.0" mnemonicParsing="false" onAction="#i_lowervid7Clicked" styleClass="button-red" text="Back Squat (Barbell)" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <Button layoutX="65.0" layoutY="27.0" mnemonicParsing="false" onAction="#i_lowervid8Clicked" text="Standing Calf Raises (Barbell)" />
+            <Button layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#i_lowervid8Clicked" styleClass="button-red" text="Standing Calf Raises (Barbell)" />
          </children>
       </AnchorPane>
     </children>

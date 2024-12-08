@@ -6,18 +6,11 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 
 public class CheckInController {
@@ -84,8 +77,15 @@ public class CheckInController {
                     //Reference the document
                     DocumentReference personDoc = document.getReference();
 
+
                     //get the ID of the document
                     docRef = document.getId();
+
+                    //change the current account's weight to what the user checked-in with
+                    LoginController.currentAccount.setWeight(Double.parseDouble(dailyWeight));
+
+                    //update the 'Current Weight' field in Firebase
+                    ApiFuture<WriteResult> writeResult = personDoc.update("Current Weight", Double.parseDouble(dailyWeight));
 
                     //Add the subcollection
                     ApiFuture<DocumentReference> subcollection = personDoc.collection("WeightLog")

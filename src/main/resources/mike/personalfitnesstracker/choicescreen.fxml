@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.VideosController">
    <children>
-      <Button layoutX="274.0" layoutY="106.0" mnemonicParsing="false" onAction="#iu_VidsClicked" styleClass="button-green" stylesheets="@../../styles/style.css" text="Upper" />
-      <Button layoutX="90.0" layoutY="106.0" mnemonicParsing="false" onAction="#bu_VidsClicked" prefHeight="41.0" prefWidth="73.0" styleClass="button-green" stylesheets="@../../styles/style.css" text="Upper" />
-      <Button layoutX="473.0" layoutY="106.0" mnemonicParsing="false" onAction="#au_VidsClicked" styleClass="button-green" stylesheets="@../../styles/style.css" text="Upper" />
-      <Label layoutX="218.0" layoutY="14.0" text="Exercise Videos">
+      <Button fx:id="iu" layoutX="269.0" layoutY="162.0" mnemonicParsing="false" styleClass="button-green" text="Upper" />
+      <Button fx:id="bu" layoutX="90.0" layoutY="162.0" mnemonicParsing="false" stylesheets="@../../styles/style.css" text="Upper">
+         <styleClass>
+            <String fx:value="button" />
+            <String fx:value="button-green" />
+         </styleClass></Button>
+      <Button fx:id="au" layoutX="462.0" layoutY="162.0" mnemonicParsing="false" styleClass="button-green" text="Upper" />
+      <Label layoutX="230.0" layoutY="13.0" text="Exercise Library">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="70.0" layoutY="57.0" prefHeight="37.0" prefWidth="99.0" text="Beginner" underline="true">
+      <Label alignment="CENTER" layoutX="76.0" layoutY="95.0" prefHeight="37.0" prefWidth="99.0" text="Beginner" underline="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="244.0" layoutY="57.0" prefHeight="37.0" prefWidth="120.0" text="Intermediate" underline="true">
+      <Label alignment="CENTER" layoutX="246.0" layoutY="95.0" prefHeight="37.0" prefWidth="120.0" text="Intermediate" underline="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="454.0" layoutY="57.0" prefHeight="37.0" prefWidth="99.0" text="Advanced" underline="true">
+      <Label alignment="CENTER" layoutX="449.0" layoutY="95.0" prefHeight="37.0" prefWidth="99.0" text="Advanced" underline="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="91.0" layoutY="175.0" mnemonicParsing="false" onAction="#bc_VidsClicked" prefHeight="41.0" prefWidth="67.0" styleClass="button-yellow" stylesheets="@../../styles/style.css" text="Core" />
-      <Button layoutX="273.0" layoutY="175.0" mnemonicParsing="false" onAction="#ic_VidsClicked" prefHeight="41.0" prefWidth="67.0" styleClass="button-yellow" stylesheets="@../../styles/style.css" text="Core" />
-      <Button layoutX="473.0" layoutY="175.0" mnemonicParsing="false" onAction="#ac_VidsClicked" prefHeight="41.0" prefWidth="67.0" styleClass="button-yellow" stylesheets="@../../styles/style.css" text="Core" />
-      <Button layoutX="91.0" layoutY="248.0" mnemonicParsing="false" onAction="#bl_VidsClicked" prefHeight="41.0" prefWidth="79.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Lower" />
-      <Button layoutX="273.0" layoutY="248.0" mnemonicParsing="false" onAction="#il_VidsClicked" prefHeight="41.0" prefWidth="79.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Lower" />
-      <Button layoutX="473.0" layoutY="248.0" mnemonicParsing="false" onAction="#al_VidsClicked" prefHeight="41.0" prefWidth="79.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Lower" />
-      <Button layoutX="14.0" layoutY="351.0" mnemonicParsing="false" onAction="#home" prefHeight="41.0" prefWidth="59.0" styleClass="button-red" stylesheets="@../../styles/style.css" text="Exit" />
+      <Button fx:id="bc" layoutX="94.0" layoutY="235.0" mnemonicParsing="false" styleClass="button-yellow" text="Core" />
+      <Button fx:id="ic" layoutX="273.0" layoutY="235.0" mnemonicParsing="false" styleClass="button-yellow" text="Core" />
+      <Button fx:id="ac" layoutX="468.0" layoutY="235.0" mnemonicParsing="false" styleClass="button-yellow" text="Core" />
+      <Button fx:id="bl" layoutX="91.0" layoutY="303.0" mnemonicParsing="false" styleClass="button-blue" text="Lower" />
+      <Button fx:id="il" layoutX="270.0" layoutY="303.0" mnemonicParsing="false" styleClass="button-blue" text="Lower" />
+      <Button fx:id="al" layoutX="462.0" layoutY="303.0" mnemonicParsing="false" styleClass="button-blue" text="Lower" />
+      <Button layoutX="14.0" layoutY="351.0" mnemonicParsing="false" onAction="#exit" styleClass="button-red" text="Exit" />
+      <TextField fx:id="searchBox" layoutX="32.0" layoutY="23.0" prefHeight="26.0" prefWidth="99.0" promptText="Search Videos" />
    </children>
 </AnchorPane>
