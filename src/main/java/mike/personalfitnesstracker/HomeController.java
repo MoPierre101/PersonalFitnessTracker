@@ -270,6 +270,26 @@ public class HomeController {
                 //Reference the document
                 DocumentReference personDoc = document.getReference();
 
+                FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
+                StorageOptions options = StorageOptions.newBuilder()
+                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                        .build();
+
+                Storage storage = options.getService();
+
+                String oldPfpBLobInfo = LoginController.currentAccount.getPfpBlobInfo();
+
+                Bucket bucket = storage.get("personal-fitness-tracker-66576.firebasestorage.app");
+
+                // Delete the file
+                if (bucket.get(oldPfpBLobInfo) != null) {
+                    bucket.get(oldPfpBLobInfo).delete();
+                    System.out.println("File deleted successfully");
+                } else {
+                    System.out.println("File not found");
+                }
+
+
                 //change the current account's weight to what the user checked-in with
                 LoginController.currentAccount.setPfpBlobInfo(blobInfo);
 
