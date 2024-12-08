@@ -283,8 +283,13 @@ public class HomeController {
 
                 // Delete the file
                 if (bucket.get(oldPfpBLobInfo) != null) {
-                    bucket.get(oldPfpBLobInfo).delete();
-                    System.out.println("File deleted successfully");
+                    if(!oldPfpBLobInfo.equals("pfps/OK.jpg")){
+                        bucket.get(oldPfpBLobInfo).delete();
+                        System.out.println("File deleted successfully");
+                    }else{
+                        System.out.println("File OK.jpg cannot be deleted");
+                    }
+
                 } else {
                     System.out.println("File not found");
                 }
