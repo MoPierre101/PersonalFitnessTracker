@@ -1,32 +1,25 @@
 package mike.personalfitnesstracker;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QuerySnapshot;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ChartsController {
 
     @javafx.fxml.FXML
     private BorderPane borderPane;
 
-    private boolean darkmode;
+    private List<Log> logs = new LinkedList<>();
 
     @javafx.fxml.FXML
     public void initialize() {
-
-        if (darkmode == true) {
-            SettingsController.setDarkMode();
-        }
-
-
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
 
@@ -38,17 +31,32 @@ public class ChartsController {
         XYChart.Series data = new XYChart.Series();
         data.setName("Weight Overtime");
 
-        //provide data
-        data.getData().add(new XYChart.Data("10/17/24", 134.0));
-        data.getData().add(new XYChart.Data("10/18/24", 138.0));
-        data.getData().add(new XYChart.Data("10/19/24", 142.0));
-        data.getData().add(new XYChart.Data("10/20/24", 146.0));
+        ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
+                .document(CheckInController.docRef)
+                .collection("WeightLog")
+                .orderBy("Date", Query.Direction.ASCENDING)
+                .get();
 
-        lineChart.getData().add(data);
-        lineChart.setLegendVisible(false);
+        try{
+            QuerySnapshot querySnapshot = query.get();
+            for(DocumentSnapshot document : querySnapshot.getDocuments()) {
+                String date = (String) document.getData().get("Date");
+                double weight = (Double) document.getData().get("Weight");
+                logs.add(new Log(weight, date));
+            }
 
-        //add barChart to borderPane
-        borderPane.setCenter(lineChart);
+            for(Log log : logs) {
+                data.getData().add(new XYChart.Data(log.getDate(), (Double) log.getWeight()));
+            }
+            lineChart.getData().add(data);
+            lineChart.setLegendVisible(false);
+
+            //add barChart to borderPane
+            borderPane.setCenter(lineChart);
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     @javafx.fxml.FXML
@@ -64,11 +72,9 @@ public class ChartsController {
         XYChart.Series data = new XYChart.Series();
         data.setName("Weight Overtime");
 
-        //provide data
-        data.getData().add(new XYChart.Data("10/17/24", 134.0));
-        data.getData().add(new XYChart.Data("10/18/24", 138.0));
-        data.getData().add(new XYChart.Data("10/19/24", 142.0));
-        data.getData().add(new XYChart.Data("10/20/24", 146.0));
+        for(Log log : logs) {
+            data.getData().add(new XYChart.Data(log.getDate(), (Double) log.getWeight()));
+        }
 
         lineChart.getData().add(data);
         lineChart.setLegendVisible(false);
@@ -90,11 +96,9 @@ public class ChartsController {
         XYChart.Series data = new XYChart.Series();
         data.setName("Weight Overtime");
 
-        //provide data
-        data.getData().add(new XYChart.Data("10/17/24", 134.0));
-        data.getData().add(new XYChart.Data("10/18/24", 138.0));
-        data.getData().add(new XYChart.Data("10/19/24", 142.0));
-        data.getData().add(new XYChart.Data("10/20/24", 146.0));
+        for(Log log : logs) {
+            data.getData().add(new XYChart.Data(log.getDate(), (Double) log.getWeight()));
+        }
 
         barChart.getData().add(data);
         barChart.setLegendVisible(false);
@@ -105,18 +109,6 @@ public class ChartsController {
 
     @javafx.fxml.FXML
     public void handleClose(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene homeScene = new Scene(homeParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(homeScene);
-        window.centerOnScreen();
-        window.show();
-    }
-
-    @javafx.fxml.FXML
-    public void handleUpdateData(ActionEvent actionEvent) {
-        
+        SceneManager.switchScene("home.fxml");
     }
 }

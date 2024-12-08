@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SettingsController">
+<Pane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mike.personalfitnesstracker.SettingsController">
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="800.0">
             <children>
@@ -30,7 +30,7 @@
                         <Label text="Font Size:" GridPane.columnIndex="5" GridPane.rowIndex="15" />
                         <ComboBox fx:id="fontSizeComboBox" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                         <Label text="Profile Picture:" GridPane.columnIndex="3" GridPane.rowIndex="11" />
-                        <Button onAction="#handleUpdateProfilePicture" text="Update Picture" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                        <Button fx:id="chooseImageBtn" onAction="#chooseFileButtonClicked" text="Update Picture" GridPane.columnIndex="3" GridPane.rowIndex="13" />
                         <Label text="Username:" GridPane.columnIndex="3" GridPane.rowIndex="16" />
                         <Button onAction="#handleChangeUsername" prefHeight="15.0" prefWidth="120.0" text="Change Username" GridPane.columnIndex="3" GridPane.rowIndex="17" />
                   <ComboBox fx:id="fontSizeComboBox1" GridPane.columnIndex="3" GridPane.rowIndex="12" />

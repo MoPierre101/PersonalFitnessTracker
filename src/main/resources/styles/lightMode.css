@@ -3,6 +3,11 @@
     -fx-text-fill: black;
 }
 
+#rootPane {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 .button {
     -fx-background-color: lightblue;
     -fx-text-fill: black;
