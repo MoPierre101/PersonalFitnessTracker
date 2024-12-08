@@ -1,17 +1,27 @@
 package mike.personalfitnesstracker;
 
 
-import com.google.cloud.firestore.Firestore;
-import com.google.firebase.auth.FirebaseAuth;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static BooleanProperty isActive = new SimpleBooleanProperty(false);
 
     public static Firestore fstore;
 
