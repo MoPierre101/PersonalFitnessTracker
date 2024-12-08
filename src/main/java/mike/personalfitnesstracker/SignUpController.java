@@ -221,8 +221,15 @@ public class SignUpController
             //'Person' object that pertains to the user
             Person addPerson = new Person(firstName, lastName, age, curWeight, heightFeet, heightInches);
 
+            String pfpString = uploadProfilePicture(pfpFile);
+
+            System.out.println(pfpString);
+            if(pfpString.isEmpty()){
+                AlertManager.showAlert(Alert.AlertType.WARNING, "Error!", "Need to select a profile picture!");
+            }
+
             //'Account' object created from Person object
-            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, heightFeet, heightInches, targetWeight, uploadProfilePicture(pfpFile));
+            Account addAccount = new Account(username, password, email, firstName, lastName, age, curWeight, heightFeet, heightInches, targetWeight, pfpString);
 
             //Create a request to add valid person to Firebase
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
@@ -284,35 +291,33 @@ public class SignUpController
     private String uploadProfilePicture(File file){
         String destinationPath = "pfps/OK.jpg";
 
-        if(file.exists()){
 
+        try {
+            // Initialize Firebase App
+            FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
+            StorageOptions options = StorageOptions.newBuilder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
 
-            try {
-                // Initialize Firebase App
-                FileInputStream serviceAccount = new FileInputStream("src/main/resources/mike/personalfitnesstracker/key.json");
-                StorageOptions options = StorageOptions.newBuilder()
-                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                        .build();
+            Storage storage = options.getService();
 
-                Storage storage = options.getService();
+            String bucketName = "personal-fitness-tracker-66576.firebasestorage.app"; // Replace with your bucket name
+            destinationPath = "pfps/" + UUID.randomUUID() +  file.getName(); // Path in the bucket
+            String filename = file.getName();
+            String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+            // Read the file and upload to the bucket
+            byte[] fileBytes = Files.readAllBytes(file.toPath());
+            BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, destinationPath)
+                    .setContentType("image/"+fileExtension) // Set the MIME type
+                    .build();
+            storage.create(blobInfo, fileBytes);
 
-                String bucketName = "personal-fitness-tracker-66576.firebasestorage.app"; // Replace with your bucket name
-                destinationPath = "pfps/" + UUID.randomUUID() +  file.getName(); // Path in the bucket'
-                String filename = file.getName();
-                String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
-                // Read the file and upload to the bucket
-                byte[] fileBytes = Files.readAllBytes(file.toPath());
-                BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, destinationPath)
-                        .setContentType("image/"+fileExtension) // Set the MIME type
-                        .build();
-                storage.create(blobInfo, fileBytes);
+            System.out.println("File uploaded successfully to: " + destinationPath);
 
-                System.out.println("File uploaded successfully to: " + destinationPath);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
 
 

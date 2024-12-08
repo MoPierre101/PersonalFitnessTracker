@@ -2,15 +2,24 @@ package mike.personalfitnesstracker;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Map;
 import java.util.UUID;
 
 public class SettingsController {
@@ -46,18 +56,8 @@ public class SettingsController {
     private void handleThemeChange() {
         if (lightModeRadioButton.isSelected()) {
             setLightMode();
-            //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
-            //the currently logged-in user
-            ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
-                    .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
 
         } else if (darkModeRadioButton.isSelected()) {
-            setDarkMode();
-
-            //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
-            //the currently logged-in user
-            ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
-                    .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
 
         }
     }
@@ -77,7 +77,9 @@ public class SettingsController {
 
     @FXML
     private void handleReturnAction(ActionEvent actionEvent) throws IOException {
+
         SceneManager.switchScene("home.fxml");
+
     }
 
 
@@ -140,7 +142,8 @@ public class SettingsController {
             File selectedFile = fileChooser.showOpenDialog(currentStage);
             if (selectedFile != null) {
                 pfpFile = selectedFile;
-                uploadProfilePicture(pfpFile);
+                updatePfpDB(uploadProfilePicture(pfpFile));
+
             } else {
                 System.out.println("No file selected.");
             }
@@ -155,4 +158,31 @@ public class SettingsController {
     @FXML
     public void handleChangeUsername(ActionEvent actionEvent) {
     }
+
+    private void updatePfpDB(String blobInfo){
+        //asynchronously retrieve all documents from collection 'Person' in Firebase where the Username is equal to
+        //the currently logged-in user
+        ApiFuture<QuerySnapshot> query = Main.fstore.collection("Person")
+                .whereEqualTo("Username", LoginController.currentAccount.getUsername()).get();
+
+        try{
+            QuerySnapshot querySnapshot = query.get();
+            for(DocumentSnapshot document : querySnapshot.getDocuments()){
+
+                //Reference the document
+                DocumentReference personDoc = document.getReference();
+
+                //change the current account's weight to what the user checked-in with
+                LoginController.currentAccount.setPfpBlobInfo(blobInfo);
+
+                //update the 'Current Weight' field in Firebase
+                ApiFuture<WriteResult> writeResult = personDoc.update("Profile Picture BlobInfo", blobInfo);
+                System.out.println(blobInfo);
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 }
