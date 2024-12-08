@@ -50,10 +50,10 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="152.0" layoutY="73.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="92.0" styleClass="button-red" stylesheets="@../../styles/style.css" text="Logout" />
-                  <Button layoutX="152.0" layoutY="14.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="41.0" prefWidth="112.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="View Stats" />
-                  <Button layoutX="538.0" layoutY="14.0" mnemonicParsing="false" onAction="#settings" prefHeight="30.0" prefWidth="92.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Settings" />
-                  <Button layoutX="538.0" layoutY="73.0" mnemonicParsing="false" onAction="#workout" prefHeight="41.0" prefWidth="102.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Workout" />
+                  <Button layoutX="67.0" layoutY="67.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="92.0" styleClass="button-red" stylesheets="@../../styles/style.css" text="Logout" />
+                  <Button layoutX="244.0" layoutY="67.0" mnemonicParsing="false" onAction="#showGraphs" prefHeight="41.0" prefWidth="112.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="View Stats" />
+                  <Button fx:id="chooseImageBtn" layoutX="622.0" layoutY="67.0" mnemonicParsing="false" onAction="#chooseFileButtonClicked" prefHeight="41.0" prefWidth="140.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Change PFP" />
+                  <Button layoutX="448.0" layoutY="67.0" mnemonicParsing="false" onAction="#workout" prefHeight="41.0" prefWidth="102.0" styleClass="button-blue" stylesheets="@../../styles/style.css" text="Workout" />
                </children></AnchorPane>
          </children>
       </VBox>

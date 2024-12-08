@@ -1,7 +1,9 @@
 package mike.personalfitnesstracker;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,5 +22,12 @@ public class SceneManager {
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
 
+
     }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+
 }
