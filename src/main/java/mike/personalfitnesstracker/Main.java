@@ -1,6 +1,5 @@
 package mike.personalfitnesstracker;
 
-
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -32,13 +31,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        //initialize Firebase
+        // initialize Firebase
         fstore = contextFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
 
-
         SceneManager.setStage(stage);
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
